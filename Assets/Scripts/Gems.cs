@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 // Sung Choi
 // This class is meant to handle the gem's behaviors. 
 public class Gems : MonoBehaviour
 {
+    // list to contain neighboring gems. 
+    public List<Gems> neighborGems = new List<Gems>();
 
 	// Use this for initialization
 	void Start ()
@@ -20,8 +23,8 @@ public class Gems : MonoBehaviour
 
     void OnMouseDown()
     {
-        // test click
-        Debug.Log("Success!");
+        // test click (Works!)
+        //Debug.Log("Success!");
         
     }
 }

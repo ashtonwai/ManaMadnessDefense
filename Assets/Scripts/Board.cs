@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+// allows for lists
 using System.Collections.Generic;
 
 // Sung Choi
@@ -9,7 +10,7 @@ using System.Collections.Generic;
 public class Board : MonoBehaviour
 {
     // create a list of gameobjects holding gems
-    public List<GameObject> gList = new List<GameObject>();
+    public List<Gems> gList = new List<Gems>();
 
     // self explanatory, but how large we want the grid. (5x5 seems to be our sweet spot, so I'll set it to our default)
     public int gridWidth = 5;
@@ -25,14 +26,15 @@ public class Board : MonoBehaviour
         // for example: if grid height and gridwidth = 5, a group of 25 gameobjects should spawn. 
 	    for(int i = 0; i <  gridHeight; i++)
         {
-            for(int y = 0; y < gridWidth; y++)
+            for(int z = 0; z < gridWidth; z++)
             {
                 // create a gameobject, then add it into a list of gems. 
-                GameObject g = Instantiate(gem, new Vector3(i,y,0), Quaternion.identity) as GameObject;
+                // Set position using the i : x and z : y. 
+                GameObject g = Instantiate(gem, new Vector3(i,z,0), Quaternion.identity) as GameObject;
                 // sets each cloned gem's parent as BoardManager
                 // Logic: gameObject = this = BoardManager.
                 g.transform.parent = gameObject.transform;
-                gList.Add(g);
+                gList.Add(g.GetComponent<Gems>());
             }
         }
 
