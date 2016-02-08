@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        // set the gameobject's tag to enemy for Player detection.
+        gameObject.tag = "Enemy";
 
         // Get the renderer
         Renderer rend = GetComponent<Renderer>();

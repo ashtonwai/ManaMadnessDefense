@@ -18,4 +18,12 @@ public class Player : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Enemy")
+        {
+            Health--;
+        }
+    }
 }
