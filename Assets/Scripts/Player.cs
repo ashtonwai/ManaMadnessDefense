@@ -19,6 +19,10 @@ public class Player : MonoBehaviour {
         }
 	}
 
+    /// <summary>
+    /// Checks for collision between player and the enemy.
+    /// </summary>
+    /// <param name="other"></param>
     void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Enemy")
