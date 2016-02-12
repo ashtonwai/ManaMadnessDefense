@@ -10,13 +10,13 @@ public class Spawner : MonoBehaviour
     {
         player = GameObject.Find("Player");
         spawnEnemy();
-	}
+        InvokeRepeating("spawnEnemy", 10, 10);
+    }
     void spawnEnemy()
     {
         if(player != null)
         {
             enemy = (GameObject)Instantiate(Resources.Load("Enemy"), gameObject.transform.position, Quaternion.identity) as GameObject;
-            InvokeRepeating("spawnEnemy", 10, 10);
         }
     }
 }
