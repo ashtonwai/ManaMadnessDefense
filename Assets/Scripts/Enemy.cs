@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-enum EnemyType { Red = 1,Green = 2,Blue = 3};
+enum EnemyType { 
+	Red = 1,
+	Green = 2,
+	Blue = 3
+};
 
 public class Enemy : MonoBehaviour {
     // for testing purposes. Will not exist in final build.

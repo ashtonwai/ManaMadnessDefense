@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour {
 
@@ -7,6 +8,8 @@ public class Player : MonoBehaviour {
 	public int MaxHealth = 5;
     public int Health = 5;
 	public GameObject HealthBar;
+
+	//public Dictionary<enum, int> receivers = new Dictionary<enum, float>();
 
 	// Use this for initialization
 	void Start () {
