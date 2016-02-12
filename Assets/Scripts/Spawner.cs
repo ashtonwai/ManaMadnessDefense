@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Spawner : MonoBehaviour {
+public class Spawner : MonoBehaviour
+{
     public GameObject enemy;
 	// Use this for initialization
-	void Start () {
-
+	void Start ()
+    {
+        spawnEnemy();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    void spawnEnemy()
+    {
+        enemy = (GameObject)Instantiate(Resources.Load("Enemy"), gameObject.transform.position, Quaternion.identity) as GameObject;
+        InvokeRepeating("spawnEnemy", 10, 10);
+    }
 }

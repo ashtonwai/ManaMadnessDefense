@@ -11,13 +11,20 @@ public class Enemy : MonoBehaviour {
     private Vector3 target;
     public GameObject player;
     public float speed;
+
 	// Use this for initialization
 	void Start () {
         player = GameObject.Find("Player");
-        target = player.transform.position;
+
+        // if the player exists, set target
+        if(player != null)
+        {
+            target = player.transform.position;
+        }
+        
 
         // just set speed to random for now
-        speed = Random.Range(1.0f, 3.0f);
+        speed = Random.Range(0.5f, 1.5f);
 
         // set the gameobject's tag to enemy for Player detection.
         gameObject.tag = "Enemy";
@@ -54,6 +61,12 @@ public class Enemy : MonoBehaviour {
         // proper movement towards position
         float move = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target, move);
+
+        // if the player no longer exists, destroy the enemies.
+        if(player == null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     /// <summary>
