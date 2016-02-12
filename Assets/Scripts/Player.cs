@@ -4,7 +4,9 @@ using System.Collections;
 public class Player : MonoBehaviour {
 
     // Health, keeps track of player life. (5 default) 
+	public int MaxHealth = 5;
     public int Health = 5;
+	public GameObject HealthBar;
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +30,11 @@ public class Player : MonoBehaviour {
         if(other.tag == "Enemy")
         {
             Health--;
+			HealthBar.transform.localScale = new Vector3(
+				(float)Health / MaxHealth, 
+				HealthBar.transform.localScale.y, 
+				HealthBar.transform.localScale.z
+			);
         }
     }
 }

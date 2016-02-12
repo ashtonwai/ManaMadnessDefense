@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		this.transform.GetComponent<Collider>().isTrigger = true;
+
         player = GameObject.Find("Player");
 
         // if the player exists, set target
@@ -21,7 +24,6 @@ public class Enemy : MonoBehaviour {
         {
             target = player.transform.position;
         }
-        
 
         // just set speed to random for now
         speed = Random.Range(0.5f, 1.5f);
@@ -51,7 +53,7 @@ public class Enemy : MonoBehaviour {
         {
             rend.material.SetColor("_Color", Color.red);
         }
-}
+	}
 	
 	// Update is called once per frame
 	void Update () {
