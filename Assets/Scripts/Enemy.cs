@@ -7,8 +7,18 @@ public class Enemy : MonoBehaviour {
     // for testing purposes. Will not exist in final build.
     //public bool isColliding;
 
+    // get player and the target vector
+    private Vector3 target;
+    public GameObject player;
+    public float speed;
 	// Use this for initialization
 	void Start () {
+        player = GameObject.Find("Player");
+        target = player.transform.position;
+
+        // just set speed to random for now
+        speed = Random.Range(1.0f, 3.0f);
+
         // set the gameobject's tag to enemy for Player detection.
         gameObject.tag = "Enemy";
 
@@ -39,8 +49,12 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         // Very primitive, meant for testing.
-        transform.Translate(Vector3.down * Time.deltaTime);
-	}
+        //transform.Translate(Vector3.down * Time.deltaTime);
+
+        // proper movement towards position
+        float move = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, target, move);
+    }
 
     /// <summary>
     /// When sphere collider triggers, check if the collided object is a player.
