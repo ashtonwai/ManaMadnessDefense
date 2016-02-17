@@ -191,7 +191,6 @@ Transform:
   - {fileID: 1165944474}
   m_Father: {fileID: 619153780}
   m_RootOrder: 1
-<<<<<<< HEAD
 --- !u!1 &288040516
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,54 +267,6 @@ Transform:
   - {fileID: 1061369393}
   m_Father: {fileID: 0}
   m_RootOrder: 8
-=======
---- !u!1001 &485258478
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 438884, guid: e079a34da33d8ef45891c33983c5e1e8, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 209
-      objectReference: {fileID: 0}
-    - target: {fileID: 438884, guid: e079a34da33d8ef45891c33983c5e1e8, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 631
-      objectReference: {fileID: 0}
-    - target: {fileID: 438884, guid: e079a34da33d8ef45891c33983c5e1e8, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 438884, guid: e079a34da33d8ef45891c33983c5e1e8, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 438884, guid: e079a34da33d8ef45891c33983c5e1e8, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 438884, guid: e079a34da33d8ef45891c33983c5e1e8, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 438884, guid: e079a34da33d8ef45891c33983c5e1e8, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 438884, guid: e079a34da33d8ef45891c33983c5e1e8, type: 2}
-      propertyPath: m_RootOrder
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 11419294, guid: e079a34da33d8ef45891c33983c5e1e8, type: 2}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 1061988534}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: e079a34da33d8ef45891c33983c5e1e8, type: 2}
-  m_IsPrefabParent: 0
->>>>>>> 787ebaacc653f4e66b5cc9a6c8316d8863d48327
 --- !u!1001 &554977922
 Prefab:
   m_ObjectHideFlags: 0
@@ -548,11 +499,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< HEAD
   m_RootOrder: 1
-=======
-  m_RootOrder: 3
->>>>>>> 787ebaacc653f4e66b5cc9a6c8316d8863d48327
 --- !u!1 &814367119
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,21 +575,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 814367119}
---- !u!1 &883918225 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 179126, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
-  m_PrefabInternal: {fileID: 1920916500}
---- !u!114 &883918230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 883918225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f28a35058b97d94ab9c8b8d6852b230, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &899989159
 Prefab:
   m_ObjectHideFlags: 0
@@ -680,7 +612,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 434432, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 434432, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
       propertyPath: m_LocalScale.x
@@ -698,11 +630,9 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11434152, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
   m_IsPrefabParent: 0
-<<<<<<< HEAD
 --- !u!1 &1061369392
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,12 +708,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1061369392}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-=======
---- !u!1 &1061988534 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 188818, guid: d66c4fddbb3ed58498656a81a4d0c650, type: 2}
-  m_PrefabInternal: {fileID: 554977922}
->>>>>>> 787ebaacc653f4e66b5cc9a6c8316d8863d48327
 --- !u!1 &1085942124
 GameObject:
   m_ObjectHideFlags: 0
@@ -1161,11 +1085,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 434432, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
       propertyPath: m_RootOrder
-<<<<<<< HEAD
       value: 5
-=======
-      value: 2
->>>>>>> 787ebaacc653f4e66b5cc9a6c8316d8863d48327
       objectReference: {fileID: 0}
     - target: {fileID: 434432, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
       propertyPath: m_LocalScale.x
@@ -1175,16 +1095,11 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 20
       objectReference: {fileID: 0}
-<<<<<<< HEAD
     - target: {fileID: 434432, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-=======
-    m_RemovedComponents:
-    - {fileID: 11434152, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
->>>>>>> 787ebaacc653f4e66b5cc9a6c8316d8863d48327
   m_ParentPrefab: {fileID: 100100000, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1479633033
@@ -1308,21 +1223,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1479633033}
---- !u!1 &1558425638 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 179126, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
-  m_PrefabInternal: {fileID: 1326605323}
---- !u!114 &1558425643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1558425638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f28a35058b97d94ab9c8b8d6852b230, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1568082960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,21 +1376,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1569411181}
---- !u!1 &1585604314 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 179126, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
-  m_PrefabInternal: {fileID: 899989159}
---- !u!114 &1585604319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1585604314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f28a35058b97d94ab9c8b8d6852b230, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1636474257
 GameObject:
   m_ObjectHideFlags: 0
@@ -1818,11 +1703,7 @@ RectTransform:
   m_Children:
   - {fileID: 619153780}
   m_Father: {fileID: 0}
-<<<<<<< HEAD
   m_RootOrder: 2
-=======
-  m_RootOrder: 5
->>>>>>> 787ebaacc653f4e66b5cc9a6c8316d8863d48327
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 207, y: 229.5}
@@ -1899,8 +1780,7 @@ Prefab:
       propertyPath: m_Name
       value: Spawner (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 11434152, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 53f0d214d644b164ba859b18e2bdd418, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2018429948
