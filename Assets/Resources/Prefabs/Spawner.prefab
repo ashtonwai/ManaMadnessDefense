@@ -11,6 +11,7 @@ GameObject:
   - 33: {fileID: 3354106}
   - 64: {fileID: 6405296}
   - 23: {fileID: 2333386}
+  - 114: {fileID: 11434152}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -75,6 +76,17 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &11434152
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f28a35058b97d94ab9c8b8d6852b230, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
