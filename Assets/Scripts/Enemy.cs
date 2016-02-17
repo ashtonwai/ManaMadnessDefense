@@ -20,17 +20,19 @@ public class Enemy : MonoBehaviour {
 	void Start () {
 
 		this.transform.GetComponent<Collider>().isTrigger = true;
+		this.transform.localScale = new Vector3 (50, 50, 0.25f);
 
         player = GameObject.Find("Player");
 
         // if the player exists, set target
-        if(player != null)
-        {
-            target = player.transform.position;
-        }
+		if (player != null) {
+			target = player.transform.position;
+		} else {
+			Debug.Log (player);
+		}
 
         // just set speed to random for now
-        speed = Random.Range(0.5f, 1.5f);
+        speed = Random.Range(15.5f, 35.5f);
 
         // set the gameobject's tag to enemy for Player detection.
         gameObject.tag = "Enemy";
@@ -67,6 +69,7 @@ public class Enemy : MonoBehaviour {
         // proper movement towards position
         float move = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, target, move);
+		//Debug.Log (move);
 
         // if the player no longer exists, destroy the enemies.
         if(player == null)
