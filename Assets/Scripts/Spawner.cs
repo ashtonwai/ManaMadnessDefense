@@ -14,7 +14,8 @@ public class Spawner : MonoBehaviour
     }
     void spawnEnemy()
     {
-        if(player != null)
+		Debug.Log ("Enemy spawned");
+		if(player != null)
         {
             enemy = (GameObject)Instantiate(Resources.Load("Enemy"), gameObject.transform.position, Quaternion.identity) as GameObject;
         }
