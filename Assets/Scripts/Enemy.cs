@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class Enemy : MonoBehaviour {
+    private Renderer rend;
+    public Spawner spawn;
     // for testing purposes. Will not exist in final build.
     //public bool isColliding;
 
@@ -9,6 +11,7 @@ public class Enemy : MonoBehaviour {
     private Vector3 target;
     public GameObject player;
     public float speed;
+    public EnemyType type;
     
 
 	// Use this for initialization
@@ -34,10 +37,9 @@ public class Enemy : MonoBehaviour {
         gameObject.tag = "Enemy";
 
         // Get the renderer
-        Renderer rend = GetComponent<Renderer>();
+       rend = GetComponent<Renderer>();
 
         //isColliding = false;
-
 
     }
 	
@@ -56,6 +58,20 @@ public class Enemy : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+
+        // if statements will check the type, and then color the material accordingly.
+        if (type == EnemyType.Blue)
+        {
+            rend.material.SetColor("_Color", Color.blue);
+        }
+        else if (type == EnemyType.Green)
+        {
+            rend.material.SetColor("_Color", Color.green);
+        }
+        else if (type == EnemyType.Red)
+        {
+            rend.material.SetColor("_Color", Color.red);
+        }
     }
 
     /// <summary>
@@ -71,6 +87,12 @@ public class Enemy : MonoBehaviour {
             //isColliding = true;
             Destroy(gameObject);
         }
+    }
+
+    public EnemyType setType(EnemyType typ)
+    {
+        typ = this.type;
+        return typ;
     }
 
 }

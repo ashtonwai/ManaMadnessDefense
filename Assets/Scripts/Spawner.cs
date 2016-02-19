@@ -36,7 +36,7 @@ public class Spawner : MonoBehaviour
         {
             // spawn an enemy and then repeat it every few seconds.
             spawnEnemy();
-            InvokeRepeating("spawnEnemy", 2, 2);
+            InvokeRepeating("spawnEnemy", 10, 10);
         }
     }
     void Update ()
@@ -65,6 +65,9 @@ public class Spawner : MonoBehaviour
 		if(player != null)
         {
             enemy = (GameObject)Instantiate(Resources.Load("Enemy"), gameObject.transform.position, Quaternion.identity) as GameObject;
+            //enemy.GetComponent<Enemy>().setType(type);
+
+            enemy.GetComponent<Enemy>().type = this.type;
         }
     }
 
@@ -87,7 +90,7 @@ public class Spawner : MonoBehaviour
         while(player != null)
         {
             // wait a few seconds before executing
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(10);
             type = GetRandomType();
         }
     }
