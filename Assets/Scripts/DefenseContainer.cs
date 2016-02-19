@@ -31,7 +31,12 @@ public class DefenseContainer : MonoBehaviour {
 			walls[walls.Count - 1].transform.parent = this.gameObject.transform;
 
 			// Set rotation
-			walls[walls.Count - 1].transform.rotation = this.transform.rotation;
+			walls[walls.Count - 1].transform.localRotation = Quaternion.identity;
+			walls[walls.Count - 1].transform.localPosition = new Vector3 (
+				walls[walls.Count - 1].transform.localPosition.x,
+				walls[walls.Count - 1].transform.localPosition.y + (15 * walls.Count),
+				walls[walls.Count - 1].transform.localPosition.z
+			);
 
 			// Set Type
 			walls[walls.Count - 1].GetComponent<Renderer>().material.color = currentColor;
