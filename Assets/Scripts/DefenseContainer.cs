@@ -19,6 +19,7 @@ public class DefenseContainer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
 		currentColor = receiver.GetComponent<Image> ().color;
 
 		if (currentColor != Color.white && previousColor != currentColor) {
@@ -34,7 +35,7 @@ public class DefenseContainer : MonoBehaviour {
 			walls[walls.Count - 1].transform.localRotation = Quaternion.identity;
 			walls[walls.Count - 1].transform.localPosition = new Vector3 (
 				walls[walls.Count - 1].transform.localPosition.x,
-				walls[walls.Count - 1].transform.localPosition.y + (15 * walls.Count),
+				walls[walls.Count - 1].transform.localPosition.y - 15,
 				walls[walls.Count - 1].transform.localPosition.z
 			);
 
@@ -49,8 +50,21 @@ public class DefenseContainer : MonoBehaviour {
 			} else if (currentColor == Color.green) {
 				
 			}*/
+
+			foreach (GameObject wall in walls) {
+				wall.transform.localPosition = new Vector3 (
+					wall.transform.localPosition.x,
+					wall.transform.localPosition.y + 15,
+					wall.transform.localPosition.z
+				);
+			}
 		}
 
 		previousColor = currentColor;
+
+		if (walls.Count > 0 && walls[0] == null) {
+			walls.Remove (walls[0]);
+		}
+			
 	}
 }
