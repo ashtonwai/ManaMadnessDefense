@@ -9,11 +9,12 @@ public class Player : MonoBehaviour {
     public int Health = 5;
 	public GameObject HealthBar;
 
+	private ButtonClick canvas;
 	//public Dictionary<enum, int> receivers = new Dictionary<enum, float>();
 
 	// Use this for initialization
 	void Start () {
-	    
+		canvas = GameObject.Find ("Canvas").GetComponent<ButtonClick> ();
 	}
 	
 	// Update is called once per frame

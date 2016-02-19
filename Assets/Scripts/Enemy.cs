@@ -16,11 +16,18 @@ public class Enemy : MonoBehaviour {
     public GameObject player;
     public float speed;
 
+	public int maxHealth = 2;
+	public int health = 2;
+
+	public Color color;
+	private Color otherColor;
+
 	// Use this for initialization
 	void Start () {
 
 		this.transform.GetComponent<Collider>().isTrigger = true;
-		this.transform.localScale = new Vector3 (50, 50, 0.25f);
+		this.transform.localScale = new Vector3 (35, 35, 0.25f);
+		color = this.GetComponent<Renderer>().material.color;
 
         player = GameObject.Find("Player");
 
@@ -86,13 +93,27 @@ public class Enemy : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         // check for the player tag. If it exists, set collision to true and then destroy existing gameobject
-        if(other.tag == "Player")
-        {
+		if (other.tag == "Player") {
             
-            //isColliding = true;
-            Destroy(gameObject);
+			//isColliding = true;
+			Destroy (gameObject);
 
-        }
+		} else if (other.tag == "Wall") {
+			
+			otherColor = other.GetComponent<Renderer>().material.color;
+
+			if (otherColor == color) {
+				health -= 2;
+			} else {
+				health--;
+			}
+
+			if (health > 0) {
+				this.GetComponent<Renderer> ().material.color = new Color (color.r, color.g, color.b, (float)health / maxHealth);
+			} else {
+				Destroy (gameObject);
+			}
+		}
     }
 
     /// <summary>
