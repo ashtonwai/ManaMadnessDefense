@@ -18,7 +18,7 @@ public class Enemy : MonoBehaviour {
 	void Start () {
 
 		this.transform.GetComponent<Collider>().isTrigger = true;
-		//this.transform.localScale = new Vector3 (50, 50, 0.25f);
+		this.transform.localScale = new Vector3 (50, 50, 0.25f);
 
         player = GameObject.Find("Player");
 
@@ -30,8 +30,8 @@ public class Enemy : MonoBehaviour {
 		}
 
         // just set speed to random for now
-        //speed = Random.Range(15.5f, 35.5f);
-        speed = Random.Range(1.0f, 3.0f);
+        speed = Random.Range(15.5f, 35.5f);
+        //speed = Random.Range(1.0f, 3.0f);
 
         // set the gameobject's tag to enemy for Player detection.
         gameObject.tag = "Enemy";

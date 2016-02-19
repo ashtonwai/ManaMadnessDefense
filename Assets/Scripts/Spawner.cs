@@ -35,8 +35,7 @@ public class Spawner : MonoBehaviour
         if (type != 0)
         {
             // spawn an enemy and then repeat it every few seconds.
-            spawnEnemy();
-            InvokeRepeating("spawnEnemy", 10, 10);
+            InvokeRepeating("spawnEnemy", 5, 10);
         }
     }
     void Update ()
