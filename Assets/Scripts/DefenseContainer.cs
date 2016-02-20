@@ -22,8 +22,9 @@ public class DefenseContainer : MonoBehaviour {
 		
 		currentColor = receiver.GetComponent<Image> ().color;
 
+		// Spawn wall only once when the color changes
 		if (currentColor != Color.white && previousColor != currentColor) {
-			Debug.Log ("Wall");
+			//Debug.Log ("Wall");
 
 			// Spawn Wall
 			walls.Add((GameObject)Instantiate(Resources.Load("Wall"), gameObject.transform.position, Quaternion.identity) as GameObject);
@@ -31,7 +32,7 @@ public class DefenseContainer : MonoBehaviour {
 			// Set Child
 			walls[walls.Count - 1].transform.parent = this.gameObject.transform;
 
-			// Set rotation
+			// Set rotation and position
 			walls[walls.Count - 1].transform.localRotation = Quaternion.identity;
 			walls[walls.Count - 1].transform.localPosition = new Vector3 (
 				walls[walls.Count - 1].transform.localPosition.x,
@@ -51,6 +52,7 @@ public class DefenseContainer : MonoBehaviour {
 				
 			}*/
 
+			// Move up all walls
 			foreach (GameObject wall in walls) {
 				wall.transform.localPosition = new Vector3 (
 					wall.transform.localPosition.x,
@@ -62,6 +64,7 @@ public class DefenseContainer : MonoBehaviour {
 
 		previousColor = currentColor;
 
+		// Remove destroyed walls
 		if (walls.Count > 0 && walls[0] == null) {
 			walls.Remove (walls[0]);
 		}
