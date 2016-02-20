@@ -7,8 +7,8 @@ public class ButtonClick : MonoBehaviour {
 
 	public string element;
 	public Button currentButton;
-	public Dictionary<Image, float> receivers = new Dictionary<Image, float>();
-	private Image toRemove;
+	public Dictionary<GameObject, float> drops = new Dictionary<GameObject, float>();
+	public GameObject[] dropObjects;
 
 	public Button fireElement;
 	public Button waterElement;
@@ -25,23 +25,26 @@ public class ButtonClick : MonoBehaviour {
 		fireElement.GetComponentInChildren<Text> ().text = "Fire " + fireCount;
 		waterElement.GetComponentInChildren<Text> ().text = "Water " + waterCount;
 		grassElement.GetComponentInChildren<Text> ().text = "Grass " + grassCount;
+
+		dropObjects = GameObject.FindGameObjectsWithTag("Drop");
+		//Debug.Log (dropObjects);
+		foreach (GameObject drop in dropObjects) {
+			drops.Add (drop, 0.0f);
+		}
 	}
 
 	// Update is called once per frame
 	void Update () {
-		toRemove = null;
-		foreach (KeyValuePair<Image, float> receiver in receivers) {
-			if (receiver.Value > 0) {
-				receivers[receiver.Key] -= Time.deltaTime;
-			}
-			else if (receiver.Value <= 0) {
-				receiver.Key.GetComponent<Image> ().color = Color.white;
-				toRemove = receiver.Key;
+		
+		for (int i=0; i<dropObjects.Length; i++) {
+			if (drops[dropObjects[i]] > 0) {
+				drops[dropObjects[i]] -= Time.deltaTime;
+			} else {
+				drops[dropObjects[i]] = 0.0f;
+				dropObjects[i].GetComponent<Image> ().color = Color.white;
 			}
 		}
-		if (toRemove != null) {
-			receivers.Remove (toRemove);
-		}
+
 	}
 
 	public void onClick(Button button) {
@@ -54,19 +57,19 @@ public class ButtonClick : MonoBehaviour {
 		case "Fire":
 			fireCount--;
 			image.GetComponent<Image> ().color = Color.red;
-			receivers.Add(image, timeVisible);
+			drops[image.gameObject] = timeVisible;
 			currentButton.GetComponentInChildren<Text> ().text = element + " " + fireCount;
 			break;
 		case "Water":
 			waterCount--;
 			image.GetComponent<Image> ().color = Color.blue;
-			receivers.Add(image, timeVisible);
+			drops[image.gameObject] = timeVisible;
 			currentButton.GetComponentInChildren<Text> ().text = element + " " + waterCount;
 			break;
 		case "Grass":
 			grassCount--;
 			image.GetComponent<Image> ().color = Color.green;
-			receivers.Add(image, timeVisible);
+			drops[image.gameObject] = timeVisible;
 			currentButton.GetComponentInChildren<Text> ().text = element + " " + grassCount;
 			break;
 		default:

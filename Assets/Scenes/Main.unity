@@ -792,7 +792,7 @@ GameObject:
   - 114: {fileID: 1165944475}
   m_Layer: 5
   m_Name: DropRight
-  m_TagString: Untagged
+  m_TagString: Drop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1403,7 +1403,7 @@ GameObject:
   - 114: {fileID: 1636474262}
   m_Layer: 5
   m_Name: DropLeft
-  m_TagString: Untagged
+  m_TagString: Drop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1736,6 +1736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   element: 
   currentButton: {fileID: 0}
+  images: []
   fireElement: {fileID: 1663832633}
   waterElement: {fileID: 1569411183}
   grassElement: {fileID: 1479633035}
@@ -1910,7 +1911,7 @@ GameObject:
   - 114: {fileID: 2018429950}
   m_Layer: 5
   m_Name: DropMid
-  m_TagString: Untagged
+  m_TagString: Drop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
