@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 enum EnemyType { 
 	Red = 1,
@@ -12,15 +13,13 @@ public class Enemy : MonoBehaviour {
     //public bool isColliding;
 
     // get player and the target vector
-    private Vector3 target;
+    private Vector2 target;
     public GameObject player;
     public float speed;
 
 	// Use this for initialization
 	void Start () {
-
-		this.transform.GetComponent<Collider>().isTrigger = true;
-		this.transform.localScale = new Vector3 (50, 50, 0.25f);
+		this.transform.GetComponent<Collider2D>().isTrigger = true;
 
         player = GameObject.Find("Player");
 
@@ -47,16 +46,11 @@ public class Enemy : MonoBehaviour {
         EnemyType type = GetRandomType();
 
         // if statements will check the type, and then color the material accordingly.
-        if(type == EnemyType.Blue)
-        {
+        if (type == EnemyType.Blue) {
             rend.material.SetColor("_Color", Color.blue);
-        }
-        else if(type == EnemyType.Green)
-        {
+        } else if (type == EnemyType.Green) {
             rend.material.SetColor("_Color", Color.green);
-        }
-        else if(type == EnemyType.Red)
-        {
+        } else if (type == EnemyType.Red) {
             rend.material.SetColor("_Color", Color.red);
         }
 	}
@@ -68,12 +62,11 @@ public class Enemy : MonoBehaviour {
 
         // proper movement towards position
         float move = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target, move);
+        transform.position = Vector2.MoveTowards(transform.position, target, move);
 		//Debug.Log (move);
 
         // if the player no longer exists, destroy the enemies.
-        if(player == null)
-        {
+        if (player == null) {
             Destroy(gameObject);
         }
     }
@@ -83,15 +76,11 @@ public class Enemy : MonoBehaviour {
     /// If so, destroy current gameObject.
     /// </summary>
     /// <param name="other"></param>
-    void OnTriggerEnter(Collider other)
-    {
+    void OnTriggerEnter2D(Collider2D other) {
         // check for the player tag. If it exists, set collision to true and then destroy existing gameobject
-        if(other.tag == "Player")
-        {
-            
+        if (other.tag == "Player") {
             //isColliding = true;
             Destroy(gameObject);
-
         }
     }
 
@@ -99,8 +88,7 @@ public class Enemy : MonoBehaviour {
     ///  // Gets a random enum by using the values existing within the enum
     /// </summary>
     /// <returns></returns>
-    static EnemyType GetRandomType()
-    {
+    static EnemyType GetRandomType() {
         // create an array that holds the values of each EnemyType
         System.Array a = System.Enum.GetValues(typeof(EnemyType));
         // cycle through the array and then return a random enum type

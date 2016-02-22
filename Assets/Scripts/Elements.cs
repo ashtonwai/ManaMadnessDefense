@@ -22,9 +22,9 @@ public class Elements : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		fireElement.GetComponentInChildren<Text> ().text = "Fire " + fireCount;
-		waterElement.GetComponentInChildren<Text> ().text = "Water " + waterCount;
-		grassElement.GetComponentInChildren<Text> ().text = "Grass " + grassCount;
+		fireElement.GetComponentInChildren<Text> ().text = fireCount.ToString();
+		waterElement.GetComponentInChildren<Text> ().text = waterCount.ToString();
+		grassElement.GetComponentInChildren<Text> ().text = grassCount.ToString();
 	}
 	
 	// Update is called once per frame
@@ -55,19 +55,19 @@ public class Elements : MonoBehaviour {
 			fireCount--;
 			image.GetComponent<Image> ().color = Color.red;
 			receivers.Add(image, timeVisible);
-			currentButton.GetComponentInChildren<Text> ().text = element + " " + fireCount;
+			currentButton.GetComponentInChildren<Text> ().text = fireCount.ToString();
 			break;
 		case "Water":
 			waterCount--;
 			image.GetComponent<Image> ().color = Color.blue;
 			receivers.Add(image, timeVisible);
-			currentButton.GetComponentInChildren<Text> ().text = element + " " + waterCount;
+			currentButton.GetComponentInChildren<Text> ().text = waterCount.ToString();
 			break;
 		case "Grass":
 			grassCount--;
 			image.GetComponent<Image> ().color = Color.green;
 			receivers.Add(image, timeVisible);
-			currentButton.GetComponentInChildren<Text> ().text = element + " " + grassCount;
+			currentButton.GetComponentInChildren<Text> ().text = grassCount.ToString();
 			break;
 		default:
 			print ("no element");

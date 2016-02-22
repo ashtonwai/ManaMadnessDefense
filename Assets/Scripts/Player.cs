@@ -18,8 +18,7 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    if (Health <= 0)
-        {
+	    if (Health <= 0) {
             Destroy(gameObject);
         }
 	}
@@ -28,10 +27,8 @@ public class Player : MonoBehaviour {
     /// Checks for collision between player and the enemy.
     /// </summary>
     /// <param name="other"></param>
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Enemy")
-        {
+    void OnTriggerEnter2D(Collider2D other) {
+        if (other.tag == "Enemy") {
             Health--;
 			HealthBar.transform.localScale = new Vector3(
 				(float)Health / MaxHealth, 
