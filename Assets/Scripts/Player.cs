@@ -30,10 +30,9 @@ public class Player : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other) {
         if (other.tag == "Enemy") {
             Health--;
-			HealthBar.transform.localScale = new Vector3(
+			HealthBar.transform.localScale = new Vector2(
 				(float)Health / MaxHealth, 
-				HealthBar.transform.localScale.y, 
-				HealthBar.transform.localScale.z
+				HealthBar.transform.localScale.y
 			);
         }
     }

@@ -37,7 +37,8 @@ public class Enemy : MonoBehaviour {
         gameObject.tag = "Enemy";
 
         // Get the renderer
-        Renderer rend = GetComponent<Renderer>();
+        //Renderer rend = GetComponent<Renderer>();
+		Image image = GetComponent<Image>();
 
         //isColliding = false;
 
@@ -47,11 +48,14 @@ public class Enemy : MonoBehaviour {
 
         // if statements will check the type, and then color the material accordingly.
         if (type == EnemyType.Blue) {
-            rend.material.SetColor("_Color", Color.blue);
+            //rend.material.SetColor("_Color", Color.blue);
+			image.color = Color.blue;
         } else if (type == EnemyType.Green) {
-            rend.material.SetColor("_Color", Color.green);
+            //rend.material.SetColor("_Color", Color.green);
+			image.color = Color.green;
         } else if (type == EnemyType.Red) {
-            rend.material.SetColor("_Color", Color.red);
+            //rend.material.SetColor("_Color", Color.red);
+			image.color = Color.red;
         }
 	}
 	

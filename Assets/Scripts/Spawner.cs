@@ -17,6 +17,7 @@ public class Spawner : MonoBehaviour {
 
 		if (player != null) {
             enemy = (GameObject)Instantiate(Resources.Load("Enemy"), gameObject.transform.position, Quaternion.identity) as GameObject;
+			enemy.transform.SetParent (GameObject.Find("SpaceGame").transform);
         }
     }
 }
