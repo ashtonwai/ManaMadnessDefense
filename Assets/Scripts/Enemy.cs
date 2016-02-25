@@ -59,19 +59,7 @@ public class Enemy : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        // if statements will check the type, and then color the material accordingly.
-        if (type == EnemyType.Blue)
-        {
-            rend.material.SetColor("_Color", Color.blue);
-        }
-        else if (type == EnemyType.Green)
-        {
-            rend.material.SetColor("_Color", Color.green);
-        }
-        else if (type == EnemyType.Red)
-        {
-            rend.material.SetColor("_Color", Color.red);
-        }
+        SetColor();
     }
 
     /// <summary>
@@ -95,4 +83,21 @@ public class Enemy : MonoBehaviour {
         return typ;
     }
 
+    // created a method to set the color of the objects.
+    public void SetColor()
+    {
+        // if statements will check the type, and then color the material accordingly.
+        if (type == EnemyType.Blue)
+        {
+            rend.material.SetColor("_Color", Color.blue);
+        }
+        else if (type == EnemyType.Green)
+        {
+            rend.material.SetColor("_Color", Color.green);
+        }
+        else if (type == EnemyType.Red)
+        {
+            rend.material.SetColor("_Color", Color.red);
+        }
+    }
 }

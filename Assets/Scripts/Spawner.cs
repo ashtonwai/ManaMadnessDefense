@@ -40,20 +40,7 @@ public class Spawner : MonoBehaviour
     }
     void Update ()
     {
-
-        // if statements will check the type, and then color the material accordingly.
-        if (type == EnemyType.Blue)
-        {
-            rend.material.SetColor("_Color", Color.blue);
-        }
-        else if (type == EnemyType.Green)
-        {
-            rend.material.SetColor("_Color", Color.green);
-        }
-        else if (type == EnemyType.Red)
-        {
-            rend.material.SetColor("_Color", Color.red);
-        }
+        SetColor();
     }
     /// <summary>
     /// Self explanatory, but what it basically does is spawn an enemy as a prefab and then put it in the position of the spawner. 
@@ -91,6 +78,24 @@ public class Spawner : MonoBehaviour
             // wait a few seconds before executing
             yield return new WaitForSeconds(10);
             type = GetRandomType();
+        }
+    }
+
+    // created a method to set the color of the objects.
+    public void SetColor()
+    {
+        // if statements will check the type, and then color the material accordingly.
+        if (type == EnemyType.Blue)
+        {
+            rend.material.SetColor("_Color", Color.blue);
+        }
+        else if (type == EnemyType.Green)
+        {
+            rend.material.SetColor("_Color", Color.green);
+        }
+        else if (type == EnemyType.Red)
+        {
+            rend.material.SetColor("_Color", Color.red);
         }
     }
 }
