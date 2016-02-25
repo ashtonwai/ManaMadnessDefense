@@ -19,6 +19,22 @@ public class Board : MonoBehaviour
     // the gameobject that will be used in creating the grid.
     public Object gem;
 
+    // get the last gem selected by player
+    public Gems last;
+
+    // allow for swapping by switching the vectors of both objects
+    private Vector3 firstGemSourcePosition;
+    private Vector3 firstGemNewPosition;
+
+    private Vector3 neighborGemSourcePosition;
+    private Vector3 neighborGemNewPosition;
+
+    private bool isSwapping = false;
+
+    private Gems startGem, swappedGem;
+
+    private float swapTime;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -45,6 +61,51 @@ public class Board : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-	
+	    if(isSwapping)
+        {
+
+        }
 	}
+
+    public void SwapGems(Gems source)
+    {
+        // if there is no last gem selected, set it to the source
+        if(last == null)
+        {
+            last = source;
+        }
+        // but, if there is a source, then last gem should be nulled as the player is unselecting it.
+        else if(last == source)
+        {
+            last = null;
+        }
+        // else, figure out if the gem is neighbor
+        else
+        {
+            // if the last gem is a neighbor of the currently selected gem, then allow the swap
+            if (last.NeighboredGem(source))
+            {
+                // the first gem's source position is the last gem selected's position
+                firstGemSourcePosition = last.transform.position;
+                firstGemNewPosition = source.transform.position;
+
+                neighborGemSourcePosition = source.transform.position;
+                neighborGemNewPosition = last.transform.position;
+
+                // keep time
+                swapTime = Time.time;
+
+                // self explanatory, but each gem is given to the last and source
+                startGem = last;
+                swappedGem = source;
+
+                isSwapping = true;
+            }
+            else
+            {
+                last.toggleSelection();
+                last = source;
+            }
+        }
+    }
 }

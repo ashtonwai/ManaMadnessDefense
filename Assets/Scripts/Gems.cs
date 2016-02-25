@@ -15,9 +15,18 @@ public class Gems : MonoBehaviour
     // Renderer for the material
     private Renderer[] rend;
 
+    // to check whether or not this particular instance is selected.
+    private bool isSelected;
+
+    // call boardManager object
+    private Board boardManager;
+
     // Use this for initialization
     void Start()
     {
+        // get the boardmanager script through script
+        boardManager = GameObject.Find("BoardManager").GetComponent<Board>();
+
         // this receives all of the renderers of this object's children
         rend = transform.GetComponentsInChildren<Renderer>();
 
@@ -46,26 +55,64 @@ public class Gems : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-	
+	    
 	}
-
-    void OnMouseDown()
-    {
-        // test click (Works!)
-        //Debug.Log("Success!");
-        
-        
-    }
 
     // adds the neighbors into the list.
     public void AddToList(Gems g)
     {
         neighborGems.Add(g);
     }
+    // removes the neighbors in the list
     public void RemoveFromList(Gems g)
     {
         neighborGems.Remove(g);
     }
+
+    /// <summary>
+    /// A boolean method meant to figure out whether the gem selected is a neighbor.
+    /// </summary>
+    /// <param name="g"></param>
+    /// <returns></returns>
+    public bool NeighboredGem(Gems g)
+    {
+        // if the neighbors contains this particular gem, then return true.
+        if (neighborGems.Contains(g))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void toggleSelection()
+    {
+        // Negate it
+        isSelected = !isSelected;
+
+        // just resets the scale back to normal if the selection is negated
+        if(isSelected == true)
+        {
+            gameObject.transform.localScale += new Vector3(0.2f, 0.2f, 0);
+        }
+        else
+        {
+            gameObject.transform.localScale += new Vector3(-0.2f, -0.2f, 0);
+        }
+    }
+
+    // toggles the click
+    void OnMouseDown()
+    {
+        // test click (Works!)
+        // toggleSelection();
+
+        // call the boardManager's swapgem function
+        // This allows the instance to toggle and check for neighbors at the same time. 
+        toggleSelection();
+        boardManager.SwapGems(this);
+
+    }
+
 
     /// <summary>
     ///  // Gets a random enum by using the values existing within the enum
