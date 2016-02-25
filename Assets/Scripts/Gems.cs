@@ -6,6 +6,18 @@ using System.Collections.Generic;
 // This class is meant to handle the gem's behaviors. 
 public class Gems : MonoBehaviour
 {
+
+    // returns the local position x and y of transform 
+    public int XPos
+    {
+        get { return Mathf.RoundToInt(transform.localPosition.x); }
+    }
+
+    public int YPos
+    {
+        get { return Mathf.RoundToInt(transform.localPosition.y); }
+    }
+
     // the gemType is determined by the EnemyType enum
     public EnemyType typ;
 
@@ -57,7 +69,6 @@ public class Gems : MonoBehaviour
     {
 	    
 	}
-
     // adds the neighbors into the list.
     public void AddToList(Gems g)
     {

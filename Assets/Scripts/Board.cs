@@ -16,7 +16,7 @@ public class Board : MonoBehaviour
     public int gridWidth = 5;
     public int gridHeight = 5;
 
-    // the gameobject that will be used in creating the grid.
+    // the gameobject that will be used to be considered as gem
     public Object gem;
 
     // get the last gem selected by player
@@ -28,6 +28,8 @@ public class Board : MonoBehaviour
 
     private bool canSwap =  true;
 
+    // the number of matches need to trigger an actual match.
+    private int minimumMatchRequirement = 3;
 
 	// Use this for initialization
 	void Start ()
@@ -56,6 +58,40 @@ public class Board : MonoBehaviour
 	void Update ()
     {
 	}
+
+    // checks if the actual objects had a match and then deals with the trigger
+    public void matchCheck()
+    {
+        // create two lists to iterate through and check for matches. 
+        List<Gems> matchList1 = new List<Gems>();
+        List<Gems> matchlist2 = new List<Gems>();
+    }
+
+    /// <summary>
+    /// Creates a match list that can be cycled through and checked for match logic.
+    /// </summary>
+    /// <param name="gemType"></param>
+    /// <param name="g"></param>
+    /// <param name="XPos"></param>
+    /// <param name="YPos"></param>
+    /// <param name="list"></param>
+    public void matchList(EnemyType gemType, Gems g, int XPos, int YPos, ref List<Gems> list)
+    {
+        if (g == null) { return; }
+        else if (g.typ != gemType) { return; }
+        else if (list.Contains(g)) { return; }
+        else
+        {
+            list.Add(g);
+            if (XPos == g.XPos || YPos == g.YPos)
+            {
+                foreach (Gems germs in g.neighborGems)
+                {
+                    matchList(germs.typ, germs, XPos, YPos, ref list);
+                }
+            }
+        }
+    }
 
     public void SwapGems(Gems source)
     {
@@ -87,10 +123,12 @@ public class Board : MonoBehaviour
                 last.toggleSelection();
 
                 canSwap = false;
+
+                matchCheck();
             }
             else
             {
-                //last.toggleSelection();
+                // source.toggleSelection();
                 last = source;
 
                 canSwap = true;
