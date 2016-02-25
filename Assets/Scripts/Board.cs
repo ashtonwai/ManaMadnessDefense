@@ -24,16 +24,10 @@ public class Board : MonoBehaviour
 
     // allow for swapping by switching the vectors of both objects
     private Vector3 firstGemSourcePosition;
-    private Vector3 firstGemNewPosition;
-
     private Vector3 neighborGemSourcePosition;
-    private Vector3 neighborGemNewPosition;
 
-    private bool isSwapping = false;
+    private bool canSwap =  true;
 
-    private Gems startGem, swappedGem;
-
-    private float swapTime;
 
 	// Use this for initialization
 	void Start ()
@@ -61,10 +55,6 @@ public class Board : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-	    if(isSwapping)
-        {
-
-        }
 	}
 
     public void SwapGems(Gems source)
@@ -83,28 +73,27 @@ public class Board : MonoBehaviour
         else
         {
             // if the last gem is a neighbor of the currently selected gem, then allow the swap
-            if (last.NeighboredGem(source))
+            if (last.NeighboredGem(source) && canSwap)
             {
                 // the first gem's source position is the last gem selected's position
                 firstGemSourcePosition = last.transform.position;
-                firstGemNewPosition = source.transform.position;
-
                 neighborGemSourcePosition = source.transform.position;
-                neighborGemNewPosition = last.transform.position;
 
-                // keep time
-                swapTime = Time.time;
+                // the transform is swapped
+                last.transform.position = neighborGemSourcePosition;
+                source.transform.position = firstGemSourcePosition;
 
-                // self explanatory, but each gem is given to the last and source
-                startGem = last;
-                swappedGem = source;
+                source.toggleSelection();
+                last.toggleSelection();
 
-                isSwapping = true;
+                canSwap = false;
             }
             else
             {
-                last.toggleSelection();
+                //last.toggleSelection();
                 last = source;
+
+                canSwap = true;
             }
         }
     }
