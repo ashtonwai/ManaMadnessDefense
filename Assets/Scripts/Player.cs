@@ -8,6 +8,7 @@ public class Player : MonoBehaviour {
 	public int MaxHealth = 5;
     public int Health = 5;
 	public GameObject HealthBar;
+	private bool spin = true;
 
 	//public Dictionary<enum, int> receivers = new Dictionary<enum, float>();
 
@@ -21,6 +22,18 @@ public class Player : MonoBehaviour {
 	    if (Health <= 0) {
             Destroy(gameObject);
         }
+
+		if (spin) {
+			transform.Rotate (Vector3.forward * -5);
+		} else {
+			float timer = 1;
+			timer -= Time.deltaTime;
+			if (timer == 0) {
+				timer = 0;
+				transform.Rotate (Vector3.forward * -5);
+				spin = true;
+			}
+		}
 	}
 
     /// <summary>
@@ -34,6 +47,8 @@ public class Player : MonoBehaviour {
 				(float)Health / MaxHealth, 
 				HealthBar.transform.localScale.y
 			);
+
+			spin = false;
         }
     }
 }
