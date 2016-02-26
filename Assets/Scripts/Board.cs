@@ -38,6 +38,7 @@ public class Board : MonoBehaviour
 
     private Gems g1, g2;
 
+    // stores the enum values necessary to pass matched type into defender.
     private EnemyType t;
 
 	// Use this for initialization
@@ -100,10 +101,12 @@ public class Board : MonoBehaviour
         List<Gems> matchList1 = new List<Gems>();
         List<Gems> matchList2 = new List<Gems>();
 
+        // call Matchlist in order to create a list of matched objects
         matchList(g1.typ, g1, g1.XPos, g1.YPos, ref matchList1);
-        FixList(g1, matchList1);
+        // seperate into row and column matches
+        rowColumnMatchCheck(g1, matchList1);
         matchList(g2.typ, g2, g2.XPos, g2.YPos, ref matchList2);
-        FixList(g2, matchList2);
+        rowColumnMatchCheck(g2, matchList2);
 
         // print("Gem1 = " + matchList1.Count);
     }
@@ -129,7 +132,14 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void FixList(Gems g, List<Gems>toFix)
+    /// <summary>
+    /// Takes gem and a list that needs to be fixed.
+    /// Cycles through their x and y, seperating them into rows and columns
+    /// Then if a match is detected over the minimum Match Requirement, then return true
+    /// </summary>
+    /// <param name="g"></param>
+    /// <param name="toFix"></param>
+    public void rowColumnMatchCheck(Gems g, List<Gems>toFix)
     {
         List<Gems> row = new List<Gems>();
         List<Gems> column = new List<Gems>();
@@ -154,7 +164,7 @@ public class Board : MonoBehaviour
                 row[i].isMatched = true;
             }
         }
-        if(column.Count >= minimumMatchRequirement)
+        else if(column.Count >= minimumMatchRequirement)
         {
             matchFound = true;
 

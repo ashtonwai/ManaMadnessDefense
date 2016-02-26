@@ -166,7 +166,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 292630957}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.04, y: 1, z: -10}
+  m_LocalPosition: {x: 1.07, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -201,6 +201,7 @@ MonoBehaviour:
   gList: []
   gridWidth: 5
   gridHeight: 5
+  AboveGrid: 5
   gem: {fileID: 170354, guid: f8ce0864b28ff6847b81b5430a582c36, type: 2}
   last: {fileID: 0}
 --- !u!4 &834427089
