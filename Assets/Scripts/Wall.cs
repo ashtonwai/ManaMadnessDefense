@@ -5,6 +5,7 @@ public class Wall : MonoBehaviour {
 
 	public int maxHealth = 2;
 	public int health = 2;
+	public ElementType element = ElementType.Red;
 
 	public Color color;
 	private Color otherColor;

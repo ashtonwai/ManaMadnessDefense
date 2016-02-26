@@ -1,12 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-enum EnemyType { 
-	Red = 1,
-	Green = 2,
-	Blue = 3
-};
-
 public class Enemy : MonoBehaviour {
     // for testing purposes. Will not exist in final build.
     //public bool isColliding;
@@ -18,64 +12,44 @@ public class Enemy : MonoBehaviour {
 
 	public int maxHealth = 2;
 	public int health = 2;
+	public ElementType element;
 
-	public Color color;
-	private Color otherColor;
+	private Color color;
+	private Renderer rend;
 
 	// Use this for initialization
 	void Start () {
 
-		this.transform.GetComponent<Collider>().isTrigger = true;
-		this.transform.localScale = new Vector3 (35, 35, 0.25f);
-		color = this.GetComponent<Renderer>().material.color;
-
-        player = GameObject.Find("Player");
-
-        // if the player exists, set target
-		if (player != null) {
-			target = player.transform.position;
-		} else {
-			Debug.Log (player);
-		}
-
-        // just set speed to random for now
+		player = GameManager.player;
+		target = player.transform.position;
         speed = Random.Range(15.5f, 35.5f);
 
         // set the gameobject's tag to enemy for Player detection.
         gameObject.tag = "Enemy";
 
         // Get the renderer
-        Renderer rend = GetComponent<Renderer>();
-
-        //isColliding = false;
+        rend = GetComponent<Renderer>();
 
         // Get a random enum from the function
-        //EnemyType type = (EnemyType)Random.Range(1, 4);
-        EnemyType type = GetRandomType();
+        //ElementType type = (ElementType)Random.Range(1, 4);
+        element = GameManager.GetRandomType();
 
-        // if statements will check the type, and then color the material accordingly.
-        if(type == EnemyType.Blue)
-        {
-            rend.material.SetColor("_Color", Color.blue);
-        }
-        else if(type == EnemyType.Green)
-        {
-            rend.material.SetColor("_Color", Color.green);
-        }
-        else if(type == EnemyType.Red)
-        {
-            rend.material.SetColor("_Color", Color.red);
-        }
+        // set material color based upon enum type
+		rend.material.SetColor("_Color", GameManager.elementColor[(int)element]);
+
+		color = rend.material.color;
+		rend.material.shader = GameManager.transparentShader;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        // Very primitive, meant for testing.
-        //transform.Translate(Vector3.down * Time.deltaTime);
 
         // proper movement towards position
-        float move = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target, move);
+        transform.position = Vector3.MoveTowards(
+			transform.position,		// current position
+			target, 				// target position
+			speed * Time.deltaTime	// speed
+		);
 		//Debug.Log (move);
 
         // if the player no longer exists, destroy the enemies.
@@ -92,15 +66,16 @@ public class Enemy : MonoBehaviour {
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other)
     {
+
         // check for the player tag. If it exists, set collision to true and then destroy existing gameobject
-		if (other.tag == "Player") {
+		if (other == player) {
             
-			//isColliding = true;
 			Destroy (gameObject);
 
 		} else if (other.tag == "Wall") {
 			
-			otherColor = other.GetComponent<Renderer>().material.color;
+			Color otherColor = other.GetComponent<Renderer>().material.color;
+			Debug.Log(otherColor);
 
 			if (otherColor == color) {
 				health -= 2;
@@ -109,23 +84,11 @@ public class Enemy : MonoBehaviour {
 			}
 
 			if (health > 0) {
-				this.GetComponent<Renderer> ().material.color = new Color (color.r, color.g, color.b, (float)health / maxHealth);
+				rend.material.color = new Color (color.r, color.g, color.b, (float)health / maxHealth);
 			} else {
-				Destroy (gameObject);
+				Destroy(gameObject);
 			}
 		}
     }
-
-    /// <summary>
-    ///  // Gets a random enum by using the values existing within the enum
-    /// </summary>
-    /// <returns></returns>
-    static EnemyType GetRandomType()
-    {
-        // create an array that holds the values of each EnemyType
-        System.Array a = System.Enum.GetValues(typeof(EnemyType));
-        // cycle through the array and then return a random enum type
-        EnemyType newEnemy = (EnemyType)a.GetValue(Random.Range(0, a.Length));
-        return newEnemy;
-    }
+		
 }
