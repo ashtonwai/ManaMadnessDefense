@@ -7,15 +7,16 @@ public class Enemy : MonoBehaviour {
 
     // get player and the target vector
     private Vector3 target;
-    public GameObject player;
-    public float speed;
+    private GameObject player;
+    
+	public float speed;
 
-	public int maxHealth = 2;
+	private int maxHealth = 2;
 	public int health = 2;
 	public ElementType element;
 
-	private Color color;
 	private Renderer rend;
+	private GameObject lastCollided; // Used to detect for collisions with other GameObjects only once
 
 	// Use this for initialization
 	void Start () {
@@ -35,9 +36,7 @@ public class Enemy : MonoBehaviour {
         element = GameManager.GetRandomType();
 
         // set material color based upon enum type
-		rend.material.SetColor("_Color", GameManager.elementColor[(int)element]);
-
-		color = rend.material.color;
+		rend.material.color = GameManager.elementColor[(int)element];
 		rend.material.shader = GameManager.transparentShader;
 	}
 	
@@ -68,27 +67,28 @@ public class Enemy : MonoBehaviour {
     {
 
         // check for the player tag. If it exists, set collision to true and then destroy existing gameobject
-		if (other == player) {
+		if (other.gameObject == player) {
             
 			Destroy (gameObject);
 
-		} else if (other.tag == "Wall") {
-			
-			Color otherColor = other.GetComponent<Renderer>().material.color;
-			Debug.Log(otherColor);
+		} else if (other.GetComponent<Wall>() && other.gameObject != lastCollided) {
 
-			if (otherColor == color) {
-				health -= 2;
-			} else {
+			// If strong against the opposing element, take only half damage
+			if (GameManager.elementStrength[(int)element] == other.GetComponent<Wall>().element) {
 				health--;
+			} else {
+				health -= 2;
 			}
 
+			// If damaged, become opaque
 			if (health > 0) {
-				rend.material.color = new Color (color.r, color.g, color.b, (float)health / maxHealth);
+				rend.material.color = new Color (rend.material.color.r, rend.material.color.g, rend.material.color.b, (float)health / maxHealth);
 			} else {
 				Destroy(gameObject);
 			}
 		}
+
+		lastCollided = other.gameObject;
     }
 		
 }

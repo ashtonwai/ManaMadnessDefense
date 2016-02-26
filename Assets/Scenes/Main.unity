@@ -326,8 +326,12 @@ Prefab:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 11425254, guid: d66c4fddbb3ed58498656a81a4d0c650, type: 2}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1061369392}
     m_RemovedComponents:
-    - {fileID: 13561874, guid: d66c4fddbb3ed58498656a81a4d0c650, type: 2}
+    - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: d66c4fddbb3ed58498656a81a4d0c650, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &619153779

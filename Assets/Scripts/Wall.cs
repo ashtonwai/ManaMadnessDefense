@@ -3,16 +3,20 @@ using System.Collections;
 
 public class Wall : MonoBehaviour {
 
-	public int maxHealth = 2;
+	private int maxHealth = 2;
 	public int health = 2;
-	public ElementType element = ElementType.Red;
+	public ElementType element;
 
-	public Color color;
-	private Color otherColor;
+	private Renderer rend;
+	private GameObject lastCollided; // Used to detect for collisions with other GameObjects only once
 
 	// Use this for initialization
 	void Start () {
-		color = this.GetComponent<Renderer>().material.color;
+		rend = GetComponent<Renderer>();
+
+		// set material color based upon enum type
+		rend.material.color = GameManager.elementColor[(int)element];
+		rend.material.shader = GameManager.transparentShader;
 	}
 	
 	// Update is called once per frame
@@ -22,23 +26,25 @@ public class Wall : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		// check for the player tag. If it exists, set collision to true and then destroy existing gameobject
-		if (other.tag == "Enemy") {
+		// Check for collision with Enemy
+		if (other.GetComponent<Enemy>() && other.gameObject != lastCollided) {
 
-			otherColor = other.GetComponent<Renderer>().material.color;
-
-			if (otherColor == color) {
-				health -= 2;
-			} else {
+			// If strong against the opposing element, take only half damage
+			if (GameManager.elementStrength[(int)element] == other.GetComponent<Enemy>().element) {
 				health--;
+			} else {
+				health -= 2;
 			}
 
+			// If damaged, become opaque
 			if (health > 0) {
-				this.GetComponent<Renderer> ().material.color = new Color (color.r, color.g, color.b, (float)health / maxHealth);
+				rend.material.color = new Color (rend.material.color.r, rend.material.color.g, rend.material.color.b, (float)health / maxHealth);
 			} else {
-				Destroy (gameObject);
+				Destroy(gameObject);
 			}
 
 		}
+
+		lastCollided = other.gameObject;
 	}
 }

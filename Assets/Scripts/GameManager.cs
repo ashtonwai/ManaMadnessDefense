@@ -29,6 +29,11 @@ public class GameManager : MonoBehaviour {
 		Color.green,
 		Color.blue
 	};
+	public static ElementType[] elementStrength = {
+		ElementType.Green,
+		ElementType.Blue,
+		ElementType.Red
+	};
 
 	/// <summary>
 	///  // Gets a random enum by using the values existing within the enum

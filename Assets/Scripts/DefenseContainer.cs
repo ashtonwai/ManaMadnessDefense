@@ -41,16 +41,13 @@ public class DefenseContainer : MonoBehaviour {
 			);
 
 			// Set Type
-			walls[walls.Count - 1].GetComponent<Renderer>().material.color = currentColor;
-
-			/*
 			if (currentColor == Color.red) {
-				
-			} else if (currentColor == Color.blue) {
-			
+				walls[walls.Count - 1].GetComponent<Wall>().element = ElementType.Red;
 			} else if (currentColor == Color.green) {
-				
-			}*/
+				walls[walls.Count - 1].GetComponent<Wall>().element = ElementType.Green;
+			} else if (currentColor == Color.blue) {
+				walls[walls.Count - 1].GetComponent<Wall>().element = ElementType.Blue;
+			}
 
 			// Move up all walls
 			foreach (GameObject wall in walls) {
