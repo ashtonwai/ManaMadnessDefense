@@ -16,6 +16,9 @@ public class Board : MonoBehaviour
     public int gridWidth = 5;
     public int gridHeight = 5;
 
+    // This is just to set it one y position above the grid where it can spawn again.
+    public int oneAboveGrid = 2;
+
     // the gameobject that will be used to be considered as gem
     public Object gem;
 
@@ -30,6 +33,10 @@ public class Board : MonoBehaviour
 
     // the number of matches need to trigger an actual match.
     private int minimumMatchRequirement = 3;
+
+    private bool isMatched = false;
+
+    private Gems g1, g2;
 
 	// Use this for initialization
 	void Start ()
@@ -51,35 +58,55 @@ public class Board : MonoBehaviour
         }
 
         // transforms position to center. (We're gonna have to think of a way to scale this to mobile later...)
-        gameObject.transform.position = new Vector3(-2.5f, -0.35f, 0);
+        //gameObject.transform.position = new Vector3(-2.5f, -0.35f, 0);
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        if(isMatched)
+        {
+            for(int i = 0; i < gList.Count; i++)
+            {
+                if(gList[i].isMatched == true)
+                {
+                    gList[i].typ = gList[i].GetRandomType();
+                    gList[i].SetColor();
+                    gList[i].transform.position = new Vector3(gList[i].transform.position.x, gList[i].transform.position.y + oneAboveGrid, gList[i].transform.position.z);
+                    gList[i].GetComponent<Rigidbody>().useGravity = true;
+                    gList[i].GetComponent<Rigidbody>().isKinematic = false;
+                }
+                //gList[i].GetComponent<Rigidbody>().useGravity = false;
+                //gList[i].GetComponent<Rigidbody>().isKinematic = true;
+            }
+            isMatched = false;
+        }
 	}
+
 
     // checks if the actual objects had a match and then deals with the trigger
     public void matchCheck()
     {
         // create two lists to iterate through and check for matches. 
         List<Gems> matchList1 = new List<Gems>();
-        List<Gems> matchlist2 = new List<Gems>();
+        List<Gems> matchList2 = new List<Gems>();
+
+        matchList(g1.typ, g1, g1.XPos, g1.YPos, ref matchList1);
+        FixList(g1, matchList1);
+        matchList(g2.typ, g2, g2.XPos, g2.YPos, ref matchList2);
+        FixList(g2, matchList2);
+
+        // print("Gem1 = " + matchList1.Count);
     }
 
-    /// <summary>
-    /// Creates a match list that can be cycled through and checked for match logic.
-    /// </summary>
-    /// <param name="gemType"></param>
-    /// <param name="g"></param>
-    /// <param name="XPos"></param>
-    /// <param name="YPos"></param>
-    /// <param name="list"></param>
+    // recursive function meant to find max match
     public void matchList(EnemyType gemType, Gems g, int XPos, int YPos, ref List<Gems> list)
     {
+        // if there are any inconsistancies, return
         if (g == null) { return; }
         else if (g.typ != gemType) { return; }
         else if (list.Contains(g)) { return; }
+        // otherwise recursively call matchList and add to list
         else
         {
             list.Add(g);
@@ -87,12 +114,54 @@ public class Board : MonoBehaviour
             {
                 foreach (Gems germs in g.neighborGems)
                 {
-                    matchList(germs.typ, germs, XPos, YPos, ref list);
+                    matchList(gemType, germs, XPos, YPos, ref list);
                 }
             }
         }
     }
 
+    public void FixList(Gems g, List<Gems>toFix)
+    {
+        List<Gems> row = new List<Gems>();
+        List<Gems> column = new List<Gems>();
+
+        for(int i = 0; i < toFix.Count; i++)
+        {
+            if(g.XPos == toFix[i].XPos)
+            {
+                row.Add(toFix[i]);
+            }
+            if (g.YPos == toFix[i].YPos)
+            {
+                column.Add(toFix[i]);
+            }
+        }
+        if(row.Count >= minimumMatchRequirement)
+        {
+            isMatched = true;
+
+            for(int i = 0; i < row.Count; i++)
+            {
+                row[i].isMatched = true;
+            }
+        }
+        if(column.Count >= minimumMatchRequirement)
+        {
+            isMatched = true;
+
+            for (int i = 0; i < column.Count; i++)
+            {
+                column[i].isMatched = true;
+            }
+        }
+    }
+
+    // MatchFix will check rows and columns and attempt to create a logical solution.
+    public void matchFix(Gems g, List<Gems> gList)
+    {
+
+    }
+   
     public void SwapGems(Gems source)
     {
         // if there is no last gem selected, set it to the source
@@ -111,6 +180,8 @@ public class Board : MonoBehaviour
             // if the last gem is a neighbor of the currently selected gem, then allow the swap
             if (last.NeighboredGem(source) && canSwap)
             {
+                g1 = last;
+                g2 = source;
                 // the first gem's source position is the last gem selected's position
                 firstGemSourcePosition = last.transform.position;
                 neighborGemSourcePosition = source.transform.position;
@@ -122,14 +193,18 @@ public class Board : MonoBehaviour
                 source.toggleSelection();
                 last.toggleSelection();
 
+                // for swap control
                 canSwap = false;
 
+                last = null;
+
+                // call match check here and allow the game to look for potential matches 
                 matchCheck();
             }
             else
             {
-                // source.toggleSelection();
                 last = source;
+                //last.toggleSelection();
 
                 canSwap = true;
             }

@@ -28,7 +28,10 @@ public class Gems : MonoBehaviour
     private Renderer[] rend;
 
     // to check whether or not this particular instance is selected.
-    private bool isSelected;
+    private bool isSelected = false;
+
+    // Determine whether match is made
+    public bool isMatched = false;
 
     // call boardManager object
     private Board boardManager;
@@ -45,23 +48,7 @@ public class Gems : MonoBehaviour
         // Get the renderer
         typ = GetRandomType();
 
-        // set each child's renderer to change colors depending on type.
-        foreach (Renderer r in rend)
-        {
-            // if statements will check the type, and then color the material accordingly.
-            if (typ == EnemyType.Blue)
-            {
-                r.material.SetColor("_Color", Color.blue);
-            }
-            else if (typ == EnemyType.Green)
-            {
-                r.material.SetColor("_Color", Color.green);
-            }
-            else if (typ == EnemyType.Red)
-            {
-                r.material.SetColor("_Color", Color.red);
-            }
-        }
+        SetColor();
     }
 	
 	// Update is called once per frame
@@ -100,14 +87,15 @@ public class Gems : MonoBehaviour
         // Negate it
         isSelected = !isSelected;
 
-        // just resets the scale back to normal if the selection is negated
+        // if selected is true, then give the player proper feedback and let them know that they successfully selected it.
         if(isSelected == true)
         {
-            gameObject.transform.localScale += new Vector3(0.2f, 0.2f, 0);
+            //gameObject.transform.localScale += new Vector3(0.2f, 0.2f, 0);
+            
         }
         else
         {
-            gameObject.transform.localScale += new Vector3(-0.2f, -0.2f, 0);
+            //gameObject.transform.localScale += new Vector3(-0.2f, -0.2f, 0);
         }
     }
 
@@ -135,6 +123,28 @@ public class Gems : MonoBehaviour
         System.Array a = System.Enum.GetValues(typeof(EnemyType));
         // cycle through the array and then return a random enum type
         EnemyType newEnemy = (EnemyType)a.GetValue(Random.Range(0, a.Length));
+        isMatched = false;
         return newEnemy;
+    }
+    
+    public void SetColor()
+    {
+        // set each child's renderer to change colors depending on type.
+        foreach (Renderer r in rend)
+        {
+            // if statements will check the type, and then color the material accordingly.
+            if (typ == EnemyType.Blue)
+            {
+                r.material.SetColor("_Color", Color.blue);
+            }
+            else if (typ == EnemyType.Green)
+            {
+                r.material.SetColor("_Color", Color.green);
+            }
+            else if (typ == EnemyType.Red)
+            {
+                r.material.SetColor("_Color", Color.red);
+            }
+        }
     }
 }
