@@ -17,7 +17,7 @@ public class Board : MonoBehaviour
     public int gridHeight = 5;
 
     // This is just to set it one y position above the grid where it can spawn again.
-    public int oneAboveGrid = 2;
+    public int AboveGrid = 5;
 
     // the gameobject that will be used to be considered as gem
     public Object gem;
@@ -34,9 +34,11 @@ public class Board : MonoBehaviour
     // the number of matches need to trigger an actual match.
     private int minimumMatchRequirement = 3;
 
-    private bool isMatched = false;
+    private bool matchFound = false;
 
     private Gems g1, g2;
+
+    private EnemyType t;
 
 	// Use this for initialization
 	void Start ()
@@ -64,22 +66,29 @@ public class Board : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if(isMatched)
+        if(matchFound)
         {
             for(int i = 0; i < gList.Count; i++)
             {
                 if(gList[i].isMatched == true)
                 {
+                    // just set the type as the gem type
+                    t = gList[i].typ;
+
+                    // Reposition the matched units and then change their type and color to allow for randomization
                     gList[i].typ = gList[i].GetRandomType();
                     gList[i].SetColor();
-                    gList[i].transform.position = new Vector3(gList[i].transform.position.x, gList[i].transform.position.y + oneAboveGrid, gList[i].transform.position.z);
+                    gList[i].transform.position = new Vector3(gList[i].transform.position.x, gList[i].transform.position.y + AboveGrid, gList[i].transform.position.z);
                     gList[i].GetComponent<Rigidbody>().useGravity = true;
                     gList[i].GetComponent<Rigidbody>().isKinematic = false;
+
                 }
                 //gList[i].GetComponent<Rigidbody>().useGravity = false;
                 //gList[i].GetComponent<Rigidbody>().isKinematic = true;
             }
-            isMatched = false;
+            Debug.Log(t);
+
+            matchFound = false;
         }
 	}
 
@@ -138,7 +147,7 @@ public class Board : MonoBehaviour
         }
         if(row.Count >= minimumMatchRequirement)
         {
-            isMatched = true;
+            matchFound = true;
 
             for(int i = 0; i < row.Count; i++)
             {
@@ -147,19 +156,13 @@ public class Board : MonoBehaviour
         }
         if(column.Count >= minimumMatchRequirement)
         {
-            isMatched = true;
+            matchFound = true;
 
             for (int i = 0; i < column.Count; i++)
             {
                 column[i].isMatched = true;
             }
         }
-    }
-
-    // MatchFix will check rows and columns and attempt to create a logical solution.
-    public void matchFix(Gems g, List<Gems> gList)
-    {
-
     }
    
     public void SwapGems(Gems source)
@@ -210,4 +213,13 @@ public class Board : MonoBehaviour
             }
         }
     }
+
+    // Return a matched type to add to defense bar. 
+    /*
+    public EnemyType returnMatchedType(EnemyType typ)
+    {
+        t = typ;
+        return t;
+    }
+    */
 }
