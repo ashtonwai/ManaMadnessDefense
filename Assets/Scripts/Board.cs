@@ -39,7 +39,7 @@ public class Board : MonoBehaviour
     private Gems g1, g2;
 
     // stores the enum values necessary to pass matched type into defender.
-    private EnemyType t;
+    private ElementType t;
 
 	// Use this for initialization
 	void Start ()
@@ -61,7 +61,7 @@ public class Board : MonoBehaviour
         }
 
         // transforms position to center. (We're gonna have to think of a way to scale this to mobile later...)
-        //gameObject.transform.position = new Vector3(-2.5f, -0.35f, 0);
+        //gameObject.transform.position = new Vector3(4.5f, 36.35f, 0);
 	}
 	
 	// Update is called once per frame
@@ -127,7 +127,7 @@ public class Board : MonoBehaviour
     }
 
     // recursive function meant to find max match
-    public void matchList(EnemyType gemType, Gems g, int XPos, int YPos, ref List<Gems> list)
+    public void matchList(ElementType gemType, Gems g, int XPos, int YPos, ref List<Gems> list)
     {
         // if there are any inconsistancies, return
         if (g == null) { return; }

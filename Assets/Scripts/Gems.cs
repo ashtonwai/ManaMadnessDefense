@@ -19,7 +19,7 @@ public class Gems : MonoBehaviour
     }
 
     // the gemType is determined by the EnemyType enum
-    public EnemyType typ;
+    public ElementType typ;
 
     // list to contain neighboring gems. 
     public List<Gems> neighborGems = new List<Gems>();
@@ -40,7 +40,7 @@ public class Gems : MonoBehaviour
     void Start()
     {
         // get the boardmanager script through script
-        boardManager = GameObject.Find("BoardManager").GetComponent<Board>();
+        boardManager = GameObject.Find("Board").GetComponent<Board>();
 
         // this receives all of the renderers of this object's children
         rend = transform.GetComponentsInChildren<Renderer>();
@@ -117,12 +117,12 @@ public class Gems : MonoBehaviour
     ///  // Gets a random enum by using the values existing within the enum
     /// </summary>
     /// <returns></returns>
-    public EnemyType GetRandomType()
+    public ElementType GetRandomType()
     {
         // create an array that holds the values of each EnemyType
-        System.Array a = System.Enum.GetValues(typeof(EnemyType));
+        System.Array a = System.Enum.GetValues(typeof(ElementType));
         // cycle through the array and then return a random enum type
-        EnemyType newEnemy = (EnemyType)a.GetValue(Random.Range(0, a.Length));
+        ElementType newEnemy = (ElementType)a.GetValue(Random.Range(0, a.Length));
         isMatched = false;
         return newEnemy;
     }
@@ -133,15 +133,15 @@ public class Gems : MonoBehaviour
         foreach (Renderer r in rend)
         {
             // if statements will check the type, and then color the material accordingly.
-            if (typ == EnemyType.Blue)
+            if (typ == ElementType.Blue)
             {
                 r.material.SetColor("_Color", Color.blue);
             }
-            else if (typ == EnemyType.Green)
+            else if (typ == ElementType.Green)
             {
                 r.material.SetColor("_Color", Color.green);
             }
-            else if (typ == EnemyType.Red)
+            else if (typ == ElementType.Red)
             {
                 r.material.SetColor("_Color", Color.red);
             }
