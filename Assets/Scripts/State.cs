@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -24,56 +25,59 @@ public class State : MonoBehaviour {
 		windows.Add (GameObject.Find ("WinGameWindow"));
 		windows.Add (GameObject.Find ("GameOverWindow"));
 
-		foreach (GameObject w in windows) {
-			w.SetActive(false);
-		}
-
-		windows[1].SetActive(true);
+		changeWindow (1);
 
 		pauseButton = GameObject.Find ("GamePauseButton");
+		pauseButton.GetComponent<Button>().onClick.AddListener(print);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		currentState = gameState;
 
+		/*
+		Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
+		RaycastHit hit;
+
+		if (Physics.Raycast (ray, out hit)) {
+			if (hit.transform == pauseButton.transform) {
+				gameState = GameState.Pause;
+			}
+		}*/
+
 		if (currentState != previousState) {
 			switch (currentState) {
 			case GameState.Start:
 				Debug.Log ("Start");
-				foreach (GameObject w in windows) {
-					w.SetActive(false);
-				}
-
-				windows[0].SetActive(true);
+				changeWindow (0);
 				break;
 			case GameState.Game:
 				Debug.Log ("Game");
-				foreach (GameObject w in windows) {
-					w.SetActive(false);
-				}
-
-				windows[1].SetActive(true);
+				changeWindow (1);
 				break;
 			case GameState.Pause:
 				Debug.Log ("Pause");
-				foreach (GameObject w in windows) {
-					w.SetActive(false);
-				}
-
-				windows[2].SetActive(true);
+				changeWindow (2);
 				break;
 			case GameState.End:
 				Debug.Log ("End");
-				foreach (GameObject w in windows) {
-					w.SetActive(false);
-				}
-
-				windows[4].SetActive(true);
+				changeWindow (4);
 				break;
 			}
 		}
 
 		previousState = currentState;
+	}
+
+	void print () {
+		Debug.Log ("Clicked");
+	}
+
+	public void changeWindow(int window) {
+		foreach (GameObject w in windows) {
+			w.SetActive(false);
+		}
+
+		windows[window].SetActive(true);
 	}
 }
