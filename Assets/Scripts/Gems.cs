@@ -26,7 +26,7 @@ public class Gems : MonoBehaviour
     public List<Gems> neighborGems = new List<Gems>();
 
     // to check whether or not this particular instance is selected.
-    private bool isSelected = false;
+    public bool isSelected = false;
 
     // Determine whether match is made
     public bool isMatched = false;
@@ -35,7 +35,7 @@ public class Gems : MonoBehaviour
     private Board boardManager;
 
     // for the rendering
-    private Image[] image;
+    public Image[] image;
 
     // Use this for initialization
     void Start()
@@ -52,7 +52,18 @@ public class Gems : MonoBehaviour
         // set each child's renderer to change colors depending on type.
         foreach (Image i in image)
         {
-            i.color = GameManager.elementColor[(int)typ];
+            if(typ == ElementType.Red)
+            {
+                i.color = GameManager.elementColor[0];
+            }
+            else if(typ == ElementType.Blue)
+            {
+                i.color = GameManager.elementColor[1];
+            }
+            else if(typ == ElementType.Green)
+            {
+                i.color = GameManager.elementColor[2];
+            }
         }
     }
 	
@@ -115,7 +126,7 @@ public class Gems : MonoBehaviour
 
         // call the boardManager's swapgem function
         // This allows the instance to toggle and check for neighbors at the same time. 
-        //Debug.Log("Success");
+        Debug.Log("You picked: " + this.typ);
         toggleSelection();
         boardManager.SwapGems(this);
 

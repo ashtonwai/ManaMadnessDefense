@@ -4154,6 +4154,7 @@ GameObject:
   - 92: {fileID: 1302897820}
   - 124: {fileID: 1302897819}
   - 81: {fileID: 1302897818}
+  - 114: {fileID: 1302897823}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4228,6 +4229,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1302897823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1302897817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1690312454, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &1410123772
 GameObject:
   m_ObjectHideFlags: 0
@@ -6468,11 +6483,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 498306, guid: 4032c597f99abd246a7ab045a19a11e2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -9.3
+      value: -152
       objectReference: {fileID: 0}
     - target: {fileID: 498306, guid: 4032c597f99abd246a7ab045a19a11e2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.89618
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 498306, guid: 4032c597f99abd246a7ab045a19a11e2, type: 2}
       propertyPath: m_LocalPosition.z
@@ -6502,6 +6517,14 @@ Prefab:
       propertyPath: gem
       value: 
       objectReference: {fileID: 120926, guid: 6eb1c86ccd3ec5347b8b483e8f2ea404, type: 2}
+    - target: {fileID: 498306, guid: 4032c597f99abd246a7ab045a19a11e2, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 498306, guid: 4032c597f99abd246a7ab045a19a11e2, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4032c597f99abd246a7ab045a19a11e2, type: 2}
   m_IsPrefabParent: 0
@@ -6616,6 +6639,8 @@ MonoBehaviour:
   fireCount: 10
   waterCount: 10
   grassCount: 10
+  board: {fileID: 0}
+  addPossible: 1
   timeVisible: 0.1
 --- !u!1 &2123917859
 GameObject:

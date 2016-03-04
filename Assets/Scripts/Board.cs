@@ -26,8 +26,9 @@ public class Board : MonoBehaviour
     public Gems last;
 
     // allow for swapping by switching the vectors of both objects
-    private Vector3 firstGemSourcePosition;
-    private Vector3 neighborGemSourcePosition;
+    private Vector2 firstGemSourcePosition;
+    private Vector2 neighborGemSourcePosition;
+
 
     private bool canSwap =  true;
 
@@ -63,7 +64,7 @@ public class Board : MonoBehaviour
 
         // transforms position to center. (We're gonna have to think of a way to scale this to mobile later...)
         //gameObject.transform.localPosition = new Vector3(30f, 30f, 0);
-        gameObject.transform.localScale = new Vector3(5f, 5f, 0);
+        //gameObject.transform.localScale = new Vector3(5f, 5f, 0);
 	}
 	
 	// Update is called once per frame
@@ -219,6 +220,9 @@ public class Board : MonoBehaviour
                 // the transform is swapped
                 last.transform.position = neighborGemSourcePosition;
                 source.transform.position = firstGemSourcePosition;
+
+                last.image = source.image;
+                source.image = last.image;
 
                 source.toggleSelection();
                 last.toggleSelection();
