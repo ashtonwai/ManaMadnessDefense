@@ -34,7 +34,7 @@ public class Board : MonoBehaviour
     // the number of matches need to trigger an actual match.
     private int minimumMatchRequirement = 3;
 
-    private bool matchFound = false;
+    private bool matchFound = false, matchPossible = false;
 
     private Gems g1, g2;
 
@@ -67,7 +67,13 @@ public class Board : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if(matchFound)
+        if(matchPossible == true)
+        {
+            // call match check here and allow the game to look for potential matches 
+            matchCheck();
+        }
+
+        if (matchFound)
         {
             for(int i = 0; i < gList.Count; i++)
             {
@@ -105,10 +111,19 @@ public class Board : MonoBehaviour
         matchList(g1.typ, g1, g1.XPos, g1.YPos, ref matchList1);
         // seperate into row and column matches
         rowColumnMatchCheck(g1, matchList1);
+        
         matchList(g2.typ, g2, g2.XPos, g2.YPos, ref matchList2);
         rowColumnMatchCheck(g2, matchList2);
 
         // print("Gem1 = " + matchList1.Count);
+    }
+
+    // does the same thing, checking for matches except for the entire board
+    public void checkNearbyMatches(Gems g)
+    {
+        List<Gems> match = new List<Gems>();
+        matchList(g.typ, g, g.XPos, g.YPos, ref match);
+        rowColumnMatchCheck(g , match);
     }
 
     // recursive function meant to find max match
@@ -211,8 +226,7 @@ public class Board : MonoBehaviour
 
                 last = null;
 
-                // call match check here and allow the game to look for potential matches 
-                matchCheck();
+                matchPossible = true;
             }
             else
             {
