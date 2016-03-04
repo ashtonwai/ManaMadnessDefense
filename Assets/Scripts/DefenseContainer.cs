@@ -28,7 +28,7 @@ public class DefenseContainer : MonoBehaviour {
 			walls.Add((GameObject)Instantiate(Resources.Load("Wall"), gameObject.transform.position, Quaternion.identity) as GameObject);
 
 			// Set Child
-			walls[walls.Count - 1].transform.parent = this.gameObject.transform;
+			walls[walls.Count - 1].transform.SetParent(this.gameObject.transform);
 
 			// Set rotation and position
 			walls[walls.Count - 1].transform.localRotation = Quaternion.identity;
@@ -50,7 +50,7 @@ public class DefenseContainer : MonoBehaviour {
 			foreach (GameObject wall in walls) {
 				wall.transform.localPosition = new Vector2 (
 					wall.transform.localPosition.x,
-					wall.transform.localPosition.y + 15
+					wall.transform.localPosition.y + 10
 				);
 			}
 		}

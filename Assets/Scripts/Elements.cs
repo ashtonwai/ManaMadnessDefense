@@ -56,19 +56,19 @@ public class Elements : MonoBehaviour {
 			fireCount--;
 			image.GetComponent<Image> ().color = Color.red;
 			drops[image.gameObject] = timeVisible;
-			currentButton.GetComponentInChildren<Text> ().text = element + " " + fireCount;
+			currentButton.GetComponentInChildren<Text> ().text = fireCount.ToString();
 			break;
 		case "Water":
 			waterCount--;
 			image.GetComponent<Image> ().color = Color.blue;
 			drops[image.gameObject] = timeVisible;
-			currentButton.GetComponentInChildren<Text> ().text = element + " " + waterCount;
+			currentButton.GetComponentInChildren<Text> ().text = waterCount.ToString();
 			break;
 		case "Grass":
 			grassCount--;
 			image.GetComponent<Image> ().color = Color.green;
 			drops[image.gameObject] = timeVisible;
-			currentButton.GetComponentInChildren<Text> ().text = element + " " + grassCount;
+			currentButton.GetComponentInChildren<Text> ().text = grassCount.ToString();
 			break;
 		default:
 			print ("no element");
