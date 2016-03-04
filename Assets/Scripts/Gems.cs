@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 // Sung Choi
 // This class is meant to handle the gem's behaviors. 
@@ -24,9 +25,6 @@ public class Gems : MonoBehaviour
     // list to contain neighboring gems. 
     public List<Gems> neighborGems = new List<Gems>();
 
-    // Renderer for the material
-    private Renderer[] rend;
-
     // to check whether or not this particular instance is selected.
     private bool isSelected = false;
 
@@ -36,19 +34,26 @@ public class Gems : MonoBehaviour
     // call boardManager object
     private Board boardManager;
 
+    // for the rendering
+    private Image[] image;
+
     // Use this for initialization
     void Start()
     {
-        // get the boardmanager script through script
-        boardManager = GameObject.Find("Board").GetComponent<Board>();
+        // Get the renderer
+        image = transform.GetComponentsInChildren<Image>();
 
-        // this receives all of the renderers of this object's children
-        rend = transform.GetComponentsInChildren<Renderer>();
+        // get the boardmanager script through script
+        boardManager = GameObject.Find("BoardManager").GetComponent<Board>();
 
         // Get the renderer
-        typ = GetRandomType();
+        typ = GameManager.GetRandomType();
 
-        SetColor();
+        // set each child's renderer to change colors depending on type.
+        foreach (Image i in image)
+        {
+            i.color = GameManager.elementColor[(int)typ];
+        }
     }
 	
 	// Update is called once per frame
@@ -59,7 +64,10 @@ public class Gems : MonoBehaviour
     // adds the neighbors into the list.
     public void AddToList(Gems g)
     {
-        neighborGems.Add(g);
+        if(!neighborGems.Contains(g))
+        {
+            neighborGems.Add(g);
+        }
     }
     // removes the neighbors in the list
     public void RemoveFromList(Gems g)
@@ -107,6 +115,7 @@ public class Gems : MonoBehaviour
 
         // call the boardManager's swapgem function
         // This allows the instance to toggle and check for neighbors at the same time. 
+        //Debug.Log("Success");
         toggleSelection();
         boardManager.SwapGems(this);
 
@@ -117,6 +126,7 @@ public class Gems : MonoBehaviour
     ///  // Gets a random enum by using the values existing within the enum
     /// </summary>
     /// <returns></returns>
+    /*
     public ElementType GetRandomType()
     {
         // create an array that holds the values of each EnemyType
@@ -126,7 +136,17 @@ public class Gems : MonoBehaviour
         isMatched = false;
         return newEnemy;
     }
-    
+    */
+
+    public void SetColor()
+    {
+        // set each child's renderer to change colors depending on type.
+        foreach (Image i in image)
+        {
+            i.color = GameManager.elementColor[(int)typ];
+        }
+    }
+    /*
     public void SetColor()
     {
         // set each child's renderer to change colors depending on type.
@@ -147,4 +167,5 @@ public class Gems : MonoBehaviour
             }
         }
     }
+    */
 }

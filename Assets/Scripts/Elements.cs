@@ -18,10 +18,14 @@ public class Elements : MonoBehaviour {
 	public int waterCount = 10;
 	public int grassCount = 10;
 
+    public Board board;
+    public bool addPossible = true;
+
 	public float timeVisible = 0.1f;
 
 	// Use this for initialization
 	void Start () {
+        board = GameObject.Find("BoardManager").GetComponent<Board>();
 		fireElement.GetComponentInChildren<Text> ().text = fireCount.ToString();
 		waterElement.GetComponentInChildren<Text> ().text = waterCount.ToString();
 		grassElement.GetComponentInChildren<Text> ().text = grassCount.ToString();
@@ -35,15 +39,19 @@ public class Elements : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		for (int i=0; i<dropObjects.Length; i++) {
-			if (drops[dropObjects[i]] > 0) {
-				drops[dropObjects[i]] -= Time.deltaTime;
-			} else {
-				drops[dropObjects[i]] = 0.0f;
-				dropObjects[i].GetComponent<Image> ().color = Color.white;
-			}
-		}
-	}
+        for (int i = 0; i < dropObjects.Length; i++)
+        {
+            if (drops[dropObjects[i]] > 0)
+            {
+                drops[dropObjects[i]] -= Time.deltaTime;
+            }
+            else {
+                drops[dropObjects[i]] = 0.0f;
+                dropObjects[i].GetComponent<Image>().color = Color.white;
+            }
+        }
+
+    }
 
 	public void onClick(Button button) {
 		currentButton = button;

@@ -39,7 +39,7 @@ public class Board : MonoBehaviour
     private Gems g1, g2;
 
     // stores the enum values necessary to pass matched type into defender.
-    private ElementType t;
+    public ElementType t;
 
 	// Use this for initialization
 	void Start ()
@@ -52,16 +52,18 @@ public class Board : MonoBehaviour
             {
                 // create a gameobject, then add it into a list of gems. 
                 // Set position using the i : x and z : y. 
-                GameObject g = Instantiate(gem, new Vector3(i,z,0), Quaternion.identity) as GameObject;
+                GameObject g = Instantiate(gem, new Vector2(i,z), Quaternion.identity) as GameObject;
                 // sets each cloned gem's parent as BoardManager
                 // Logic: gameObject = this = BoardManager.
-                g.transform.parent = gameObject.transform;
+                //g.transform.parent = gameObject.transform;
+                g.transform.SetParent(gameObject.transform, false);
                 gList.Add(g.GetComponent<Gems>());
             }
         }
 
         // transforms position to center. (We're gonna have to think of a way to scale this to mobile later...)
-        //gameObject.transform.position = new Vector3(4.5f, 36.35f, 0);
+        //gameObject.transform.localPosition = new Vector3(30f, 30f, 0);
+        gameObject.transform.localScale = new Vector3(5f, 5f, 0);
 	}
 	
 	// Update is called once per frame
@@ -83,11 +85,11 @@ public class Board : MonoBehaviour
                     t = gList[i].typ;
 
                     // Reposition the matched units and then change their type and color to allow for randomization
-                    gList[i].typ = gList[i].GetRandomType();
+                    gList[i].typ = GameManager.GetRandomType();
                     gList[i].SetColor();
                     gList[i].transform.position = new Vector3(gList[i].transform.position.x, gList[i].transform.position.y + AboveGrid, gList[i].transform.position.z);
-                    gList[i].GetComponent<Rigidbody>().useGravity = true;
-                    gList[i].GetComponent<Rigidbody>().isKinematic = false;
+                    gList[i].GetComponent<Rigidbody2D>().gravityScale = 1;
+                    gList[i].GetComponent<Rigidbody2D>().isKinematic = false;
 
                 }
                 //gList[i].GetComponent<Rigidbody>().useGravity = false;

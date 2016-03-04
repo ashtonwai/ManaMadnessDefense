@@ -7,7 +7,7 @@ public class Feelers : MonoBehaviour
     public Gems source;
 
     // if the other object is identified as a gem, then immediately check and add it into the list.
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay2D(Collider2D other)
     {
         if(other.tag == "Gem")
         {
@@ -15,8 +15,9 @@ public class Feelers : MonoBehaviour
         }
     }
 
+
     // if the other object is identified as a gem, then immediately check and remove them from the list.
-    void OnTriggerExit(Collider other)
+    void OnTriggerExit2D(Collider2D other)
     {
         if(other.tag == "Gem")
         {
