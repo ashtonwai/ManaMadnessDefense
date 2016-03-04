@@ -2,38 +2,27 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public enum GameState {
+public enum GameState
+{
 	Start,
 	Game,
 	Pause,
 	End
 }
 
-public enum ElementType { 
-	Red,
-	Green,
-	Blue
-};
+public enum ElementType
+{
+	Red = 0,
+	Green = 1,
+	Blue = 2
+}
 
-public class GameManager : MonoBehaviour {
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+public class GameManager : MonoBehaviour
+{
 		
-	public GameState gameState = GameState.Start;
-	private static GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+	public static State GM = GameObject.Find ("GameManager").GetComponent<State> ();
 
-	public static GameManager getGM () {
-		return gm; 
-	}
-
-	public static GameObject player = GameObject.Find("Player");
+	public static GameObject player = GameObject.Find ("Player");
 		
 	public static Color[] elementColor = { 
 		Color.red,
@@ -51,11 +40,12 @@ public class GameManager : MonoBehaviour {
 	///  // Gets a random enum by using the values existing within the enum
 	/// </summary>
 	/// <returns></returns>
-	public static ElementType GetRandomType() {
+	public static ElementType GetRandomType ()
+	{
 		// create an array that holds the values of each ElementType
-		System.Array a = System.Enum.GetValues(typeof(ElementType));
+		System.Array a = System.Enum.GetValues (typeof(ElementType));
 
 		// cycle through the array and then return a random enum type
-		return (ElementType)a.GetValue(Random.Range(0, a.Length));
+		return (ElementType)a.GetValue (Random.Range (0, a.Length));
 	}
 }

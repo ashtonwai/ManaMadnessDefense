@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour {
 	void Start () {
 		player = GameManager.player;
 		target = player.transform.position;
-        speed = Random.Range(15.5f, 35.5f);
+        speed = Random.Range(5.0f, 8.0f);
 
         // set the gameobject's tag to enemy for Player detection.
         gameObject.tag = "Enemy";

@@ -30,7 +30,7 @@ public class Board : MonoBehaviour
     private Vector2 neighborGemSourcePosition;
 
 
-    private bool canSwap =  true;
+    private bool canSwap = true;
 
     // the number of matches need to trigger an actual match.
     private int minimumMatchRequirement = 3;

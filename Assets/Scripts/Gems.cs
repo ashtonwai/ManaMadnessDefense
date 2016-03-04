@@ -47,24 +47,10 @@ public class Gems : MonoBehaviour
         boardManager = GameObject.Find("BoardManager").GetComponent<Board>();
 
         // Get the renderer
-        typ = GameManager.GetRandomType();
+		typ = GameManager.GetRandomType();
 
         // set each child's renderer to change colors depending on type.
-        foreach (Image i in image)
-        {
-            if(typ == ElementType.Red)
-            {
-                i.color = GameManager.elementColor[0];
-            }
-            else if(typ == ElementType.Blue)
-            {
-                i.color = GameManager.elementColor[1];
-            }
-            else if(typ == ElementType.Green)
-            {
-                i.color = GameManager.elementColor[2];
-            }
-        }
+		SetColor();
     }
 	
 	// Update is called once per frame
