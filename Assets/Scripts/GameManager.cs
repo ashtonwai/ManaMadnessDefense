@@ -2,10 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
+public enum GameState {
+	Start,
+	Game,
+	Pause,
+	End
+}
+
 public enum ElementType { 
-	Red = 0,
-	Green = 1,
-	Blue = 2
+	Red,
+	Green,
+	Blue
 };
 
 public class GameManager : MonoBehaviour {
@@ -17,6 +24,13 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+		
+	public GameState gameState = GameState.Start;
+	private static GameManager gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+	public static GameManager getGM () {
+		return gm; 
 	}
 
 	public static GameObject player = GameObject.Find("Player");

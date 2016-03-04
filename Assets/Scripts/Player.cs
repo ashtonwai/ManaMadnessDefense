@@ -9,12 +9,12 @@ public class Player : MonoBehaviour {
     public int health = 5;
 	public GameObject healthBar;
 
-	private Elements canvas;
+	//private Elements canvas;
 	private GameObject lastCollided; // Used to detect for collisions with other GameObjects only once
 
 	// Use this for initialization
 	void Start () {
-		canvas = GameObject.Find("Canvas").GetComponent<Elements>();
+		//canvas = GameObject.Find("Canvas").GetComponent<Elements>();
 	}
 	
 	// Update is called once per frame
