@@ -1,65 +1,57 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour {
-    private Renderer rend;
-    public Spawner spawn;
     // for testing purposes. Will not exist in final build.
     //public bool isColliding;
 
     // get player and the target vector
-    private Vector3 target;
-    public GameObject player;
-    public float speed;
-    public EnemyType type;
-    
+    private Vector2 target;
+    private GameObject player;
+	public float speed;
+
+	private int maxHealth = 2;
+	public int health = 2;
+	public ElementType element;
+
+	private Image image;
+	private GameObject lastCollided; // Used to detect for collisions with other GameObjects only once
 
 	// Use this for initialization
 	void Start () {
-
-		this.transform.GetComponent<Collider>().isTrigger = true;
-		this.transform.localScale = new Vector3 (50, 50, 0.25f);
-
-        player = GameObject.Find("Player");
-
-        // if the player exists, set target
-		if (player != null) {
-			target = player.transform.position;
-		} else {
-			Debug.Log (player);
-		}
-
-        // just set speed to random for now
+		player = GameManager.player;
+		target = player.transform.position;
         speed = Random.Range(15.5f, 35.5f);
-        //speed = Random.Range(1.0f, 3.0f);
 
         // set the gameobject's tag to enemy for Player detection.
         gameObject.tag = "Enemy";
 
         // Get the renderer
-       rend = GetComponent<Renderer>();
+        image = GetComponent<Image>();
 
-        //isColliding = false;
+        // Get a random enum from the function
+        //ElementType type = (ElementType)Random.Range(1, 4);
+        element = GameManager.GetRandomType();
 
-    }
+        // set material color based upon enum type
+		image.color = GameManager.elementColor[(int)element];
+	}
 	
 	// Update is called once per frame
 	void Update () {
-        // Very primitive, meant for testing.
-        //transform.Translate(Vector3.down * Time.deltaTime);
-
         // proper movement towards position
-        float move = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target, move);
+        transform.position = Vector2.MoveTowards(
+			transform.position,		// current position
+			target, 				// target position
+			speed * Time.deltaTime	// speed
+		);
 		//Debug.Log (move);
 
         // if the player no longer exists, destroy the enemies.
-        if(player == null)
-        {
+        if (player == null) {
             Destroy(gameObject);
         }
-
-        SetColor();
     }
 
     /// <summary>
@@ -67,37 +59,29 @@ public class Enemy : MonoBehaviour {
     /// If so, destroy current gameObject.
     /// </summary>
     /// <param name="other"></param>
-    void OnTriggerEnter(Collider other)
-    {
+    void OnTriggerEnter2D(Collider2D other) {
         // check for the player tag. If it exists, set collision to true and then destroy existing gameobject
-        if(other.tag == "Player")
-        {
-            //isColliding = true;
-            Destroy(gameObject);
-        }
-    }
+		if (other.gameObject == player) {
+			
+			Destroy (gameObject);
 
-    public EnemyType setType(EnemyType typ)
-    {
-        typ = this.type;
-        return typ;
-    }
+		} else if (other.GetComponent<Wall>() && other.gameObject != lastCollided) {
+			// If strong against the opposing element, take only half damage
+			if (GameManager.elementStrength[(int)element] == other.GetComponent<Wall>().element) {
+				health--;
+			} else {
+				health -= 2;
+			}
 
-    // created a method to set the color of the objects.
-    public void SetColor()
-    {
-        // if statements will check the type, and then color the material accordingly.
-        if (type == EnemyType.Blue)
-        {
-            rend.material.SetColor("_Color", Color.blue);
-        }
-        else if (type == EnemyType.Green)
-        {
-            rend.material.SetColor("_Color", Color.green);
-        }
-        else if (type == EnemyType.Red)
-        {
-            rend.material.SetColor("_Color", Color.red);
-        }
+			// If damaged, become opaque
+			if (health > 0) {
+				image.color = new Color (image.color.r, image.color.g, image.color.b, (float)health / maxHealth);
+			} else {
+				Destroy(gameObject);
+			}
+		}
+
+		lastCollided = other.gameObject;
     }
+		
 }

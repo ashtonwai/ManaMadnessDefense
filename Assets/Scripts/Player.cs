@@ -5,21 +5,21 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour {
 
     // Health, keeps track of player life. (5 default) 
-	public int MaxHealth = 5;
-    public int Health = 5;
-	public GameObject HealthBar;
+	private int maxHealth = 5;
+    public int health = 5;
+	public GameObject healthBar;
 
-	//public Dictionary<enum, int> receivers = new Dictionary<enum, float>();
+	private Elements canvas;
+	private GameObject lastCollided; // Used to detect for collisions with other GameObjects only once
 
 	// Use this for initialization
 	void Start () {
-	    
+		canvas = GameObject.Find("Canvas").GetComponent<Elements>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	    if (Health <= 0)
-        {
+	    if (health <= 0) {
             Destroy(gameObject);
         }
 	}
@@ -28,16 +28,15 @@ public class Player : MonoBehaviour {
     /// Checks for collision between player and the enemy.
     /// </summary>
     /// <param name="other"></param>
-    void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Enemy")
-        {
-            Health--;
-			HealthBar.transform.localScale = new Vector3(
-				(float)Health / MaxHealth, 
-				HealthBar.transform.localScale.y, 
-				HealthBar.transform.localScale.z
+    void OnTriggerEnter2D(Collider2D other) {
+		if(other.gameObject.GetComponent<Enemy>() && other.gameObject != lastCollided) {
+            health--;
+			healthBar.transform.localScale = new Vector2(
+				(float)health / maxHealth, 
+				healthBar.transform.localScale.y
 			);
         }
+
+		lastCollided = other.gameObject;
     }
 }
