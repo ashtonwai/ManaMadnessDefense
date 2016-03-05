@@ -10,7 +10,7 @@ public class State : MonoBehaviour {
 	private GameState currentState;
 	private GameState previousState;
 
-	private List<GameObject> windows;
+	private Dictionary<GameState, GameObject> windows;
 
 	private GameObject pauseButton;
 
@@ -18,17 +18,22 @@ public class State : MonoBehaviour {
 	void Start () {
 		gameState = GameState.Start;
 
-		windows = new List<GameObject> ();
-		windows.Add (GameObject.Find ("MainMenu"));
-		windows.Add (GameObject.Find ("GameScene"));
-		windows.Add (GameObject.Find ("PauseWindow"));
-		windows.Add (GameObject.Find ("WinGameWindow"));
-		windows.Add (GameObject.Find ("GameOverWindow"));
-
-		changeWindow (1);
+		windows = new Dictionary<GameState, GameObject> ();
+		windows.Add (GameState.Start, GameObject.Find ("MainMenu"));
+		windows.Add (GameState.Game, GameObject.Find ("GameScene"));
+		windows.Add (GameState.Pause, GameObject.Find ("PauseWindow"));
+		windows.Add (GameState.Win, GameObject.Find ("WinGameWindow"));
+		windows.Add (GameState.Lose, GameObject.Find ("GameOverWindow"));
 
 		pauseButton = GameObject.Find ("GamePauseButton");
-		pauseButton.GetComponent<Button>().onClick.AddListener(print);
+
+		pauseButton.GetComponent<Button>().onClick.AddListener(() => { // anonymous (delegate) function!
+			changeWindow (GameState.Pause);
+		});
+
+
+		// Set active window to start game
+		changeWindow (GameState.Game);
 	}
 	
 	// Update is called once per frame
@@ -46,38 +51,35 @@ public class State : MonoBehaviour {
 		}*/
 
 		if (currentState != previousState) {
+			changeWindow (currentState);
+			/*
 			switch (currentState) {
 			case GameState.Start:
 				Debug.Log ("Start");
-				changeWindow (0);
 				break;
 			case GameState.Game:
 				Debug.Log ("Game");
-				changeWindow (1);
 				break;
 			case GameState.Pause:
 				Debug.Log ("Pause");
-				changeWindow (2);
 				break;
-			case GameState.End:
-				Debug.Log ("End");
-				changeWindow (4);
+			case GameState.Win:
+				Debug.Log ("Win");
 				break;
-			}
+			case GameState.Lose:
+				Debug.Log ("Lose");
+				break;
+			}*/
 		}
 
 		previousState = currentState;
 	}
 
-	void print () {
-		Debug.Log ("Clicked");
-	}
-
-	public void changeWindow(int window) {
-		foreach (GameObject w in windows) {
+	public void changeWindow(GameState state) {
+		foreach (GameObject w in windows.Values) {
 			w.SetActive(false);
 		}
 
-		windows[window].SetActive(true);
+		windows[state].SetActive(true);
 	}
 }

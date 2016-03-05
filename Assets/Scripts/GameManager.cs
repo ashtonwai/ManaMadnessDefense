@@ -7,7 +7,8 @@ public enum GameState
 	Start,
 	Game,
 	Pause,
-	End
+	Win,
+	Lose
 }
 
 public enum ElementType
